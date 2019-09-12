@@ -1,0 +1,8 @@
+.DS_Store
+node_modules
+yarn-error.log
+/cypress/screenshots/
+/__sapper__/
+!.env.EXAMPLE
+/static/tailwind.css
+package-lock.json

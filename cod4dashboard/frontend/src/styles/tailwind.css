@@ -1,0 +1,56 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+:root {
+  --color-1: #282c37;
+  --color-2: #9baec8;
+  --color-3: #d9e1e8;
+  --color-4: #2b90d9;
+}
+@responsive {
+  .w-96 {
+    width: 24rem;
+  }
+  .h-96 {
+    height: 24rem;
+  }
+  .h-180 {
+    height: 45rem;
+  }
+}
+
+@responsive {
+  @variants hover, focus {
+    .color-1 {
+      color: var(--color-1);
+    }
+    .color-2 {
+      color: var(--color-2);
+    }
+    .color-3 {
+      color: var(--color-3);
+    }
+    .color-4 {
+      color: var(--color-4);
+    }
+
+    .background-1 {
+      background-color: var(--color-1);
+    }
+    .background-2 {
+      background-color: var(--color-2);
+    }
+    .background-3 {
+      background-color: var(--color-3);
+    }
+    .background-4 {
+      background-color: var(--color-4);
+    }
+    .background-5 {
+      background-color: #e5e8e6;
+    }
+  }
+}

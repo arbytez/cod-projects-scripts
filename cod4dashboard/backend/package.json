@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node src/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon -e js,graphql -x node --inspect src/index.js",
+    "pm2": "cross-env NODE_ENV=production pm2 start ./src/index.js -n Cod4GraphQLServer"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "nodemon": "^1.19.0"
+  },
+  "dependencies": {
+    "apollo-server-express": "^2.5.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.0.0",
+    "express": "^4.16.4",
+    "graphql": "^14.3.0",
+    "graphql-import": "^0.7.1",
+    "iconv-lite": "^0.4.24",
+    "jsonwebtoken": "^8.5.1",
+    "sqlite3": "^4.0.8"
+  },
+  "optionalDependencies": {}
+}

@@ -1,0 +1,8 @@
+/node_modules
+/.next
+/.build
+/build
+/src/logger/logs
+package-lock.json
+readMe.txt
+/src/config/*.json

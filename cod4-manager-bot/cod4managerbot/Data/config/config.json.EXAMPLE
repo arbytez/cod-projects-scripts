@@ -1,0 +1,18 @@
+{
+  "botToken": "your-bot-token",
+  "adminTgId": "your-telegram-id",
+  "adminUsername": "@yournickname",
+  "cod4ServerTest": "ip-cod4-server-for-test",
+  "cod4Server": "ip-cod4-server",
+  "cod4Port": "port-number",
+  "cod4RconTest": "your-rcon-password-for-test",
+  "cod4Rcon": "your-rcon-password",
+  "sshHost": "server-ip",
+  "sshPort": "ssh-port",
+  "sshUser": "ssh-user",
+  "sshPassword": "ssh-password",
+  "nLastLogLines": "1000",
+  "serverEnterLeaveFilePath": "/path/to/file/enterleave.log",
+  "serverBanListFilePath": "path/to/file/banlist_v2.dat",
+  "reloadBanPluginScriptName": "reload_ban_plugin.cfg"
+}

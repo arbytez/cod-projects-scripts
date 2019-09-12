@@ -1,0 +1,36 @@
+{
+  "name": "cod4-log-manager-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node src/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon -e js,graphql -x node --inspect src/index.js",
+    "pm2": "cross-env NODE_ENV=production pm2 start ./src/index.js -n Cod4LogManagerBackend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "nodemon": "^1.19.1"
+  },
+  "dependencies": {
+    "apollo-server-express": "^2.8.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.4",
+    "date-fns": "^1.30.1",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "graphql": "^14.4.2",
+    "graphql-cli": "^3.0.14",
+    "graphql-import": "^0.7.1",
+    "graphql-subscriptions": "^1.1.0",
+    "iconv-lite": "^0.5.0",
+    "jsonwebtoken": "^8.5.1",
+    "rethinkdb": "^2.3.3",
+    "signale": "^1.4.0",
+    "tail": "^2.0.3"
+  },
+  "optionalDependencies": {}
+}

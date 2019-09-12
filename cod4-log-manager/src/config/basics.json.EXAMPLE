@@ -1,0 +1,19 @@
+{
+  "connection": {
+    "ip": "127.0.0.1",
+    "password": "your-rcon-pass",
+    "port": 28960,
+    "logpath": "/path/to/file/games_mp.log"
+  },
+  "daemon": {
+    "cmdprefix": "!",
+    "language": "english",
+    "timezone": "Europe/Berlin",
+    "backgroundworkerinterval": 5000
+  },
+  "database": {
+    "hostname": "localhost",
+    "dbname": "cod4rconmanager_dev",
+    "port": 28015
+  }
+}

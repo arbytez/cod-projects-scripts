@@ -1,0 +1,58 @@
+type Player {
+  playerID: Int
+  playerGUID: String
+  aliases: String
+  firstActivityDate: Int
+  lastActivityDate: Int
+  firstActivityIP: String
+  playerIP: String
+  port: Int
+  connections: Int
+  onlineTime: Int
+  online: Int
+  punishmentScore: Int
+  kills: Int
+  deaths: Float
+  headShots: Int
+  teamKills: Int
+  teamDeaths: Int
+  selfKills: Int
+  steamid: String
+  pid: Int
+  score: Int
+  ping: Int
+  name: String
+  isVip: Int
+  isAdmin: Int
+  vipName: String
+  adminName: String
+}
+
+type ServerStatus {
+  online: Boolean!
+  hostname: String!
+  version: String!
+  os: String!
+  type: String!
+  map: String!
+  onlinePlayers: [Player]!
+}
+
+type Query {
+  player(id: String!): Player
+  serverStatus: ServerStatus!
+  searchPlayers(search: String!, limit: Int, offset: Int): [Player]!
+  admins: [Player]!
+  vips: [Player]!
+  isLogged(token: String!): Boolean!
+}
+
+type Mutation {
+  login(password: String!): Boolean!
+  logout: Boolean!
+  sendRconCommand(command: String!): String!
+}
+
+type Subscription {
+  commandResponses: String!
+}

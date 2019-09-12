@@ -1,0 +1,10 @@
+{
+  "player1-id": {
+    "power": "1",
+    "names": ["player1-name"]
+  },
+  "player2-id": {
+    "power": "1",
+    "names": ["player2-name"]
+  }
+}

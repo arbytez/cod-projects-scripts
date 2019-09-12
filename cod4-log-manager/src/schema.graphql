@@ -1,0 +1,92 @@
+enum Role {
+  ADMIN
+  USER
+  GUEST
+}
+
+type Query {
+  me: DTOUser
+}
+
+type Mutation {
+  requestUrl: UrlInfo!
+  login(name: String!, password: String!): DTOUser!
+  logout: Boolean!
+}
+
+type Subscription {
+  logEvent: LogEvent!
+  status: ServerStatus!
+}
+
+type User {
+  id: ID!
+  createdAt: Float!
+  updatedAt: Float!
+  name: String!
+  password: String!
+  roles: [Role]!
+  state: String!
+  connectedPlayer: Player
+}
+
+type DTOUser {
+  name: String!
+  roles: [Role]!
+  state: String!
+  connectedPlayer: DTOPlayer
+}
+
+type UrlInfo {
+  url: String!
+  urlExpiry: Float!
+}
+
+type LogEvent {
+  action: String!
+  from: String
+  to: String
+  weapon: String
+  bodyPart: String
+  damageType: String
+  fromTeam: String
+  toTeam: String
+}
+
+type Player {
+  id: ID!
+  createdAt: Float!
+  updatedAt: Float!
+  aliases: [String!]
+  playerid: String!
+  steamid: String
+  lastAddress: String
+}
+
+type DTOPlayer {
+  name: String!
+}
+
+type OnlinePlayer {
+  num: Int
+  score: Int
+  ping: Int
+  playerid: String
+  steamid: String
+  name: String
+  lastmsg: String
+  address: String
+  port: Int
+  qport: Int
+  rate: Int
+}
+
+type ServerStatus {
+  online: Boolean
+  hostname: String
+  version: String
+  os: String
+  type: String
+  map: String
+  onlinePlayers: [OnlinePlayer!]
+}
