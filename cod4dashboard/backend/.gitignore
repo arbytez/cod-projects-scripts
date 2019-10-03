@@ -2,3 +2,7 @@
 /.next
 /.build
 /build
+.env.prisma
+.env.development
+.env.production
+/src/logger/logs/**/*.*

@@ -1,37 +1,19 @@
-const jwt = require('jsonwebtoken');
+const { prisma } = require('../generated/prisma-client');
 
-const { serverStatus } = require('../rcon');
+const { serverStatus } = require('../../cod/rcon');
 const {
   searchPlayersQuery,
   playerByIdQuery,
   adminsQuery,
   vipsQuery
-} = require('../DbQuery');
-const { admins, vips } = require('../admins-vips');
-
-const dbAll = (db, query) =>
-  new Promise((resolve, reject) => {
-    try {
-      db.all(query, (err, rows) => {
-        if (err) return reject(err);
-        return resolve(rows);
-      });
-    } catch (error) {
-      return reject(error);
-    }
-  });
-
-const dbGet = (db, query) =>
-  new Promise((resolve, reject) => {
-    try {
-      db.get(query, (err, row) => {
-        if (err) return reject(err);
-        return resolve(row);
-      });
-    } catch (error) {
-      return reject(error);
-    }
-  });
+} = require('../../sqlitedb/queriesDb');
+const { admins, vips } = require('../../cod/admins-vips');
+const { dbAll, dbGet } = require('../../helpers/dbUtils');
+const {
+  checkAuthentication,
+  checkAuthorization
+} = require('../../helpers/auth');
+const { getCookieFromReq } = require('../../helpers/utils');
 
 const setAdminOrVipName = player => {
   let output = { ...player, vipName: '', adminName: '' };
@@ -59,15 +41,23 @@ const setAdminOrVipName = player => {
 };
 
 const Query = {
+  async me(parent, args, ctx, info) {
+    if (!ctx.req || !ctx.req.userId) {
+      return null;
+    }
+    const user = await prisma.user({ id: ctx.req.userId });
+    const token = getCookieFromReq(ctx.req, 'token');
+    return { user, token };
+  },
   async player(parent, args, ctx, info) {
-    if (!ctx.user) throw new Error('Unauthorized!');
-    const { id } = args;
-    const row = await dbGet(ctx.sqlitedb, playerByIdQuery(id));
+    checkAuthorization(ctx, ['ROOT', 'ADMIN', 'MODERATOR', 'VIP']);
+    const { playerId } = args;
+    const row = await dbGet(ctx.sqlitedb, playerByIdQuery(playerId));
     if (row.isVip || row.isAdmin) row = setAdminOrVipName(row);
     return row;
   },
-  async serverStatus(parent, args, ctx, info) {
-    if (!ctx.user) throw new Error('Unauthorized!');
+  async codServerStatus(parent, args, ctx, info) {
+    checkAuthorization(ctx, ['ROOT', 'ADMIN', 'MODERATOR', 'VIP']);
     const status = await serverStatus();
     status.onlinePlayers = status.onlinePlayers.map(async player => {
       let dbPlayer =
@@ -88,8 +78,12 @@ const Query = {
     });
     return status;
   },
+  async codServerMiniStatus(parent, args, ctx, info) {
+    checkAuthentication(ctx);
+    // TODO
+  },
   async searchPlayers(parent, args, ctx, info) {
-    if (!ctx.user) throw new Error('Unauthorized!');
+    checkAuthorization(ctx, ['ROOT', 'ADMIN', 'MODERATOR', 'VIP']);
     const { search, limit = 10, offset = 0 } = args;
     if (!search) throw new Error('search is a required field');
     const rows = await dbAll(
@@ -102,7 +96,7 @@ const Query = {
     });
   },
   async admins(parent, args, ctx, info) {
-    if (!ctx.user) throw new Error('Unauthorized!');
+    checkAuthorization(ctx, ['ROOT', 'ADMIN', 'MODERATOR', 'VIP']);
     const rows = await dbAll(ctx.sqlitedb, adminsQuery());
     return rows.map(row => {
       if (row.isVip || row.isAdmin) row = setAdminOrVipName(row);
@@ -110,26 +104,12 @@ const Query = {
     });
   },
   async vips(parent, args, ctx, info) {
-    if (!ctx.user) throw new Error('Unauthorized!');
+    checkAuthorization(ctx, ['ROOT', 'ADMIN', 'MODERATOR', 'VIP']);
     const rows = await dbAll(ctx.sqlitedb, vipsQuery());
     return rows.map(row => {
       if (row.isVip || row.isAdmin) row = setAdminOrVipName(row);
       return row;
     });
-  },
-  async isLogged(parent, args, ctx, info) {
-    const { token } = args;
-    if (!token) return false;
-    try {
-      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-      if (decodedToken) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch (error) {
-      return false;
-    }
   }
 };
 

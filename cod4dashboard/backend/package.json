@@ -6,26 +6,41 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node src/index.js",
     "dev": "cross-env NODE_ENV=development nodemon -e js,graphql -x node --inspect src/index.js",
-    "pm2": "cross-env NODE_ENV=production pm2 start ./src/index.js -n Cod4GraphQLServer"
+    "pm2": "cross-env NODE_ENV=production pm2 start ./src/index.js -n Cod4GraphQLServer",
+    "prisma:deploy": "prisma deploy --env-file .env.prisma",
+    "prisma:token": "prisma token --env-file .env.prisma",
+    "prisma:generate": "prisma generate --env-file .env.prisma",
+    "prisma:admin": "prisma admin --env-file .env.prisma",
+    "prisma:playground": "prisma playground --env-file .env.prisma"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "cross-env": "^5.2.0",
-    "nodemon": "^1.19.0"
+    "cross-env": "^6.0.3",
+    "nodemon": "^1.19.3"
   },
   "dependencies": {
-    "apollo-server-express": "^2.5.0",
+    "apollo-server-express": "^2.9.4",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
-    "dotenv": "^8.0.0",
-    "express": "^4.16.4",
-    "graphql": "^14.3.0",
+    "date-fns": "^2.4.1",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "graphql": "^14.5.8",
+    "graphql-cli": "^3.0.14",
     "graphql-import": "^0.7.1",
-    "iconv-lite": "^0.4.24",
+    "graphql-subscriptions": "^1.1.0",
+    "helmet": "^3.21.1",
+    "iconv-lite": "^0.5.0",
     "jsonwebtoken": "^8.5.1",
-    "sqlite3": "^4.0.8"
+    "prisma": "^1.34.8",
+    "prisma-binding": "^2.3.16",
+    "prisma-client-lib": "^1.34.8",
+    "signale": "^1.4.0",
+    "sqlite3": "^4.1.0",
+    "ssh2": "^0.8.5"
   },
   "optionalDependencies": {}
 }

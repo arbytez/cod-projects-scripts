@@ -1,0 +1,30 @@
+enum Role {
+  ROOT
+  ADMIN
+  MODERATOR
+  VIP
+  PLAYER
+  ROLEUPDATE
+}
+
+type User {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  username: String! @unique
+  email: String! @unique
+  password: String!
+  roles: [Role!]!
+  tokens: [Token!] @relation(link: INLINE)
+  resetToken: String
+  resetTokenExpiryDate: DateTime
+}
+
+type Token {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  content: String! @unique
+  expiration: DateTime!
+  user: User!
+}

@@ -1,3 +1,5 @@
+# import * from './generated/prisma.graphql'
+
 type Player {
   playerID: Int
   playerGUID: String
@@ -28,7 +30,7 @@ type Player {
   adminName: String
 }
 
-type ServerStatus {
+type CodServerStatus {
   online: Boolean!
   hostname: String!
   version: String!
@@ -38,21 +40,41 @@ type ServerStatus {
   onlinePlayers: [Player]!
 }
 
+type CodServerMiniStatus {
+  online: Boolean!
+  hostname: String!
+  map: String!
+  onlinePlayers: [Player]!
+}
+
 type Query {
-  player(id: String!): Player
-  serverStatus: ServerStatus!
+  me: UserWithToken
+  player(playerId: String!): Player
+  codServerStatus: CodServerStatus!
+  codServerMiniStatus: CodServerMiniStatus!
   searchPlayers(search: String!, limit: Int, offset: Int): [Player]!
   admins: [Player]!
   vips: [Player]!
-  isLogged(token: String!): Boolean!
 }
 
 type Mutation {
-  login(password: String!): Boolean!
-  logout: Boolean!
-  sendRconCommand(command: String!): String!
+  signIn(email: String!, password: String!): UserWithToken
+  signOut: Boolean!
+  signUp(email: String!, username: String!, password: String!): UserWithToken
 }
 
 type Subscription {
-  commandResponses: String!
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  roles: [Role!]!
+}
+
+type UserWithToken {
+  user: User
+  token: String
 }
