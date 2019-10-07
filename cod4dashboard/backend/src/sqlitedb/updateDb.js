@@ -5,13 +5,18 @@ const { formatDuration } = require('../helpers/utils');
 
 // download the sqlitedb via sftp
 const updateDb = () => {
+  // update sqlitedb only in production
+  if (process.env.NODE_ENV !== 'production') {
+    signale.warn('sqlitedb update skipped');
+    return;
+  }
   const conn = new Client();
   signale.await(`connecting via ssh to ${process.env.SSH_SERVER}...`);
   conn
     .on('ready', function() {
       conn.sftp(function(err, sftp) {
         if (err) throw err;
-        signale.pending(
+        signale.await(
           `copying db from ${process.env.SQLITEDB_FROM_PATH} to ${process.env.SQLITEDB_TO_PATH}...`
         );
         sftp.fastGet(
