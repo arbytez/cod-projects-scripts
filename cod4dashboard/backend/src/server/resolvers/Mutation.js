@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const { AuthenticationError } = require('apollo-server-express');
 const { forwardTo } = require('prisma-binding');
 
 const { prisma } = require('../generated/prisma-client');
@@ -8,10 +9,17 @@ const {
   generateToken
 } = require('../../helpers/auth');
 const { getCookieFromReq } = require('../../helpers/utils');
+const {
+  validateUser,
+  validateSignInUser,
+  validate
+} = require('../../helpers/validations');
 
 const Mutation = {
   async signIn(parent, args, ctx, info) {
     const { email, password } = args;
+    validate({ email, password })(validateSignInUser);
+    // check if user exists
     const user = await prisma.user({ email });
     if (!user) {
       throw new AuthenticationError('Invalid credentials!');
@@ -34,20 +42,7 @@ const Mutation = {
   },
   async signUp(parent, args, ctx, info) {
     let { email, username, password } = args;
-    if (!email || !username || !password) {
-      throw new AuthenticationError('Invalid data!');
-    }
-    // TODO validation data
-    // if (username.length < 3 || username.length > 20) {
-    //   throw new AuthenticationError(
-    //     'Username length must be between 3 and 20!'
-    //   );
-    // }
-    // if (password.length < 3 || password.length > 20) {
-    //   throw new AuthenticationError(
-    //     'Password length must be between 3 and 20!'
-    //   );
-    // }
+    validate({ email, username, password })(validateUser);
     password = await bcrypt.hash(password, 10);
     const user = await prisma.createUser({
       ...args,
