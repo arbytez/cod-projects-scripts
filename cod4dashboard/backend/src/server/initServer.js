@@ -87,8 +87,8 @@ if (process.env.SSL === 'true') {
 apollo.installSubscriptionHandlers(server);
 
 server.listen({ port }, () =>
-  signale.note(
-    `server ready at http${process.env.SSL === 'true' ? 's' : ''}://${
+  signale.await(
+    `server listening at http${process.env.SSL === 'true' ? 's' : ''}://${
       process.env.HOSTNAME
     }:${port}${apollo.graphqlPath}`
   )
