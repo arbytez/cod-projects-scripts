@@ -1,12 +1,20 @@
 const path = require('path');
 
-const prod = process.env.NODE_ENV === 'production';
-
 // read env variables
 let envPath = '';
-if (prod) {
-  envPath = path.join(__dirname, '..', '..', '.env.production');
-} else {
-  envPath = path.join(__dirname, '..', '..', '.env.development');
+switch (process.env.NODE_ENV) {
+  case 'production':
+    envPath = path.join(__dirname, '..', '..', '.env.production');
+    break;
+  case 'development':
+    envPath = path.join(__dirname, '..', '..', '.env.development');
+    break;
+  case 'test':
+    envPath = path.join(__dirname, '..', '..', '.env.test');
+    break;
+  default:
+    throw new Error(`NODE_ENV '${process.env.NODE_ENV}' not managed!`);
+    break;
 }
+
 require('dotenv').config({ path: envPath });

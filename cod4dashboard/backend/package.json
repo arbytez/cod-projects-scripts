@@ -5,19 +5,24 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=production node src/index.js",
-    "dev": "cross-env NODE_ENV=development nodemon -e js,graphql -x node --inspect src/index.js",
+    "dev": "cross-env NODE_ENV=development nodemon -e js,graphql --ignore src/tests/* -x node --inspect src/index.js",
     "pm2": "cross-env NODE_ENV=production pm2 start ./src/index.js -n Cod4GraphQLServer",
     "prisma:deploy": "prisma deploy --env-file .env.prisma",
     "prisma:token": "prisma token --env-file .env.prisma",
     "prisma:generate": "prisma generate --env-file .env.prisma",
     "prisma:admin": "prisma admin --env-file .env.prisma",
-    "prisma:playground": "prisma playground --env-file .env.prisma"
+    "prisma:playground": "prisma playground --env-file .env.prisma",
+    "test": "cross-env NODE_ENV=test jest",
+    "majestic": "cross-env NODE_ENV=test majestic --port=4001 --noOpen"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "cross-env": "^6.0.3",
+    "easygraphql-tester": "^5.1.6",
+    "jest": "^24.9.0",
+    "majestic": "^1.6.0",
     "nodemon": "^1.19.3"
   },
   "dependencies": {
