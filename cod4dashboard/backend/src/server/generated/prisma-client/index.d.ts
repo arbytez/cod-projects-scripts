@@ -16,8 +16,10 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
+  adminPlayer: (where?: AdminPlayerWhereInput) => Promise<boolean>;
   token: (where?: TokenWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
+  vipPlayer: (where?: VipPlayerWhereInput) => Promise<boolean>;
 }
 
 export interface Node {}
@@ -39,6 +41,27 @@ export interface Prisma {
    * Queries
    */
 
+  adminPlayer: (
+    where: AdminPlayerWhereUniqueInput
+  ) => AdminPlayerNullablePromise;
+  adminPlayers: (args?: {
+    where?: AdminPlayerWhereInput;
+    orderBy?: AdminPlayerOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<AdminPlayer>;
+  adminPlayersConnection: (args?: {
+    where?: AdminPlayerWhereInput;
+    orderBy?: AdminPlayerOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => AdminPlayerConnectionPromise;
   token: (where: TokenWhereUniqueInput) => TokenNullablePromise;
   tokens: (args?: {
     where?: TokenWhereInput;
@@ -77,12 +100,49 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => UserConnectionPromise;
+  vipPlayer: (where: VipPlayerWhereUniqueInput) => VipPlayerNullablePromise;
+  vipPlayers: (args?: {
+    where?: VipPlayerWhereInput;
+    orderBy?: VipPlayerOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<VipPlayer>;
+  vipPlayersConnection: (args?: {
+    where?: VipPlayerWhereInput;
+    orderBy?: VipPlayerOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => VipPlayerConnectionPromise;
   node: (args: { id: ID_Output }) => Node;
 
   /**
    * Mutations
    */
 
+  createAdminPlayer: (data: AdminPlayerCreateInput) => AdminPlayerPromise;
+  updateAdminPlayer: (args: {
+    data: AdminPlayerUpdateInput;
+    where: AdminPlayerWhereUniqueInput;
+  }) => AdminPlayerPromise;
+  updateManyAdminPlayers: (args: {
+    data: AdminPlayerUpdateManyMutationInput;
+    where?: AdminPlayerWhereInput;
+  }) => BatchPayloadPromise;
+  upsertAdminPlayer: (args: {
+    where: AdminPlayerWhereUniqueInput;
+    create: AdminPlayerCreateInput;
+    update: AdminPlayerUpdateInput;
+  }) => AdminPlayerPromise;
+  deleteAdminPlayer: (where: AdminPlayerWhereUniqueInput) => AdminPlayerPromise;
+  deleteManyAdminPlayers: (
+    where?: AdminPlayerWhereInput
+  ) => BatchPayloadPromise;
   createToken: (data: TokenCreateInput) => TokenPromise;
   updateToken: (args: {
     data: TokenUpdateInput;
@@ -115,6 +175,22 @@ export interface Prisma {
   }) => UserPromise;
   deleteUser: (where: UserWhereUniqueInput) => UserPromise;
   deleteManyUsers: (where?: UserWhereInput) => BatchPayloadPromise;
+  createVipPlayer: (data: VipPlayerCreateInput) => VipPlayerPromise;
+  updateVipPlayer: (args: {
+    data: VipPlayerUpdateInput;
+    where: VipPlayerWhereUniqueInput;
+  }) => VipPlayerPromise;
+  updateManyVipPlayers: (args: {
+    data: VipPlayerUpdateManyMutationInput;
+    where?: VipPlayerWhereInput;
+  }) => BatchPayloadPromise;
+  upsertVipPlayer: (args: {
+    where: VipPlayerWhereUniqueInput;
+    create: VipPlayerCreateInput;
+    update: VipPlayerUpdateInput;
+  }) => VipPlayerPromise;
+  deleteVipPlayer: (where: VipPlayerWhereUniqueInput) => VipPlayerPromise;
+  deleteManyVipPlayers: (where?: VipPlayerWhereInput) => BatchPayloadPromise;
 
   /**
    * Subscriptions
@@ -124,12 +200,18 @@ export interface Prisma {
 }
 
 export interface Subscription {
+  adminPlayer: (
+    where?: AdminPlayerSubscriptionWhereInput
+  ) => AdminPlayerSubscriptionPayloadSubscription;
   token: (
     where?: TokenSubscriptionWhereInput
   ) => TokenSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
+  vipPlayer: (
+    where?: VipPlayerSubscriptionWhereInput
+  ) => VipPlayerSubscriptionPayloadSubscription;
 }
 
 export interface ClientConstructor<T> {
@@ -139,6 +221,16 @@ export interface ClientConstructor<T> {
 /**
  * Types
  */
+
+export type AdminPlayerOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
+  | "name_ASC"
+  | "name_DESC";
 
 export type Role =
   | "ROOT"
@@ -178,7 +270,70 @@ export type UserOrderByInput =
   | "resetTokenExpiryDate_ASC"
   | "resetTokenExpiryDate_DESC";
 
+export type VipPlayerOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC"
+  | "name_ASC"
+  | "name_DESC";
+
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
+
+export type AdminPlayerWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  name?: Maybe<String>;
+}>;
+
+export interface AdminPlayerWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  AND?: Maybe<AdminPlayerWhereInput[] | AdminPlayerWhereInput>;
+}
 
 export type TokenWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
@@ -346,6 +501,83 @@ export type UserWhereUniqueInput = AtLeastOne<{
   username?: Maybe<String>;
   email?: Maybe<String>;
 }>;
+
+export type VipPlayerWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+  name?: Maybe<String>;
+}>;
+
+export interface VipPlayerWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
+  name?: Maybe<String>;
+  name_not?: Maybe<String>;
+  name_in?: Maybe<String[] | String>;
+  name_not_in?: Maybe<String[] | String>;
+  name_lt?: Maybe<String>;
+  name_lte?: Maybe<String>;
+  name_gt?: Maybe<String>;
+  name_gte?: Maybe<String>;
+  name_contains?: Maybe<String>;
+  name_not_contains?: Maybe<String>;
+  name_starts_with?: Maybe<String>;
+  name_not_starts_with?: Maybe<String>;
+  name_ends_with?: Maybe<String>;
+  name_not_ends_with?: Maybe<String>;
+  AND?: Maybe<VipPlayerWhereInput[] | VipPlayerWhereInput>;
+}
+
+export interface AdminPlayerCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  guids?: Maybe<AdminPlayerCreateguidsInput>;
+}
+
+export interface AdminPlayerCreateguidsInput {
+  set?: Maybe<String[] | String>;
+}
+
+export interface AdminPlayerUpdateInput {
+  name?: Maybe<String>;
+  guids?: Maybe<AdminPlayerUpdateguidsInput>;
+}
+
+export interface AdminPlayerUpdateguidsInput {
+  set?: Maybe<String[] | String>;
+}
+
+export interface AdminPlayerUpdateManyMutationInput {
+  name?: Maybe<String>;
+  guids?: Maybe<AdminPlayerUpdateguidsInput>;
+}
 
 export interface TokenCreateInput {
   id?: Maybe<ID_Input>;
@@ -554,6 +786,41 @@ export interface UserUpdateManyMutationInput {
   resetTokenExpiryDate?: Maybe<DateTimeInput>;
 }
 
+export interface VipPlayerCreateInput {
+  id?: Maybe<ID_Input>;
+  name: String;
+  guids?: Maybe<VipPlayerCreateguidsInput>;
+}
+
+export interface VipPlayerCreateguidsInput {
+  set?: Maybe<String[] | String>;
+}
+
+export interface VipPlayerUpdateInput {
+  name?: Maybe<String>;
+  guids?: Maybe<VipPlayerUpdateguidsInput>;
+}
+
+export interface VipPlayerUpdateguidsInput {
+  set?: Maybe<String[] | String>;
+}
+
+export interface VipPlayerUpdateManyMutationInput {
+  name?: Maybe<String>;
+  guids?: Maybe<VipPlayerUpdateguidsInput>;
+}
+
+export interface AdminPlayerSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<AdminPlayerWhereInput>;
+  AND?: Maybe<
+    AdminPlayerSubscriptionWhereInput[] | AdminPlayerSubscriptionWhereInput
+  >;
+}
+
 export interface TokenSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
@@ -572,8 +839,134 @@ export interface UserSubscriptionWhereInput {
   AND?: Maybe<UserSubscriptionWhereInput[] | UserSubscriptionWhereInput>;
 }
 
+export interface VipPlayerSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<VipPlayerWhereInput>;
+  AND?: Maybe<
+    VipPlayerSubscriptionWhereInput[] | VipPlayerSubscriptionWhereInput
+  >;
+}
+
 export interface NodeNode {
   id: ID_Output;
+}
+
+export interface AdminPlayer {
+  id: ID_Output;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+  name: String;
+  guids: String[];
+}
+
+export interface AdminPlayerPromise extends Promise<AdminPlayer>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  name: () => Promise<String>;
+  guids: () => Promise<String[]>;
+}
+
+export interface AdminPlayerSubscription
+  extends Promise<AsyncIterator<AdminPlayer>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  name: () => Promise<AsyncIterator<String>>;
+  guids: () => Promise<AsyncIterator<String[]>>;
+}
+
+export interface AdminPlayerNullablePromise
+  extends Promise<AdminPlayer | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  name: () => Promise<String>;
+  guids: () => Promise<String[]>;
+}
+
+export interface AdminPlayerConnection {
+  pageInfo: PageInfo;
+  edges: AdminPlayerEdge[];
+}
+
+export interface AdminPlayerConnectionPromise
+  extends Promise<AdminPlayerConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<AdminPlayerEdge>>() => T;
+  aggregate: <T = AggregateAdminPlayerPromise>() => T;
+}
+
+export interface AdminPlayerConnectionSubscription
+  extends Promise<AsyncIterator<AdminPlayerConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<AdminPlayerEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateAdminPlayerSubscription>() => T;
+}
+
+export interface PageInfo {
+  hasNextPage: Boolean;
+  hasPreviousPage: Boolean;
+  startCursor?: String;
+  endCursor?: String;
+}
+
+export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
+  hasNextPage: () => Promise<Boolean>;
+  hasPreviousPage: () => Promise<Boolean>;
+  startCursor: () => Promise<String>;
+  endCursor: () => Promise<String>;
+}
+
+export interface PageInfoSubscription
+  extends Promise<AsyncIterator<PageInfo>>,
+    Fragmentable {
+  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
+  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
+  startCursor: () => Promise<AsyncIterator<String>>;
+  endCursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AdminPlayerEdge {
+  node: AdminPlayer;
+  cursor: String;
+}
+
+export interface AdminPlayerEdgePromise
+  extends Promise<AdminPlayerEdge>,
+    Fragmentable {
+  node: <T = AdminPlayerPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface AdminPlayerEdgeSubscription
+  extends Promise<AsyncIterator<AdminPlayerEdge>>,
+    Fragmentable {
+  node: <T = AdminPlayerSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateAdminPlayer {
+  count: Int;
+}
+
+export interface AggregateAdminPlayerPromise
+  extends Promise<AggregateAdminPlayer>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateAdminPlayerSubscription
+  extends Promise<AsyncIterator<AggregateAdminPlayer>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
 }
 
 export interface Token {
@@ -715,29 +1108,6 @@ export interface TokenConnectionSubscription
   aggregate: <T = AggregateTokenSubscription>() => T;
 }
 
-export interface PageInfo {
-  hasNextPage: Boolean;
-  hasPreviousPage: Boolean;
-  startCursor?: String;
-  endCursor?: String;
-}
-
-export interface PageInfoPromise extends Promise<PageInfo>, Fragmentable {
-  hasNextPage: () => Promise<Boolean>;
-  hasPreviousPage: () => Promise<Boolean>;
-  startCursor: () => Promise<String>;
-  endCursor: () => Promise<String>;
-}
-
-export interface PageInfoSubscription
-  extends Promise<AsyncIterator<PageInfo>>,
-    Fragmentable {
-  hasNextPage: () => Promise<AsyncIterator<Boolean>>;
-  hasPreviousPage: () => Promise<AsyncIterator<Boolean>>;
-  startCursor: () => Promise<AsyncIterator<String>>;
-  endCursor: () => Promise<AsyncIterator<String>>;
-}
-
 export interface TokenEdge {
   node: Token;
   cursor: String;
@@ -825,6 +1195,98 @@ export interface AggregateUserSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
+export interface VipPlayer {
+  id: ID_Output;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+  name: String;
+  guids: String[];
+}
+
+export interface VipPlayerPromise extends Promise<VipPlayer>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  name: () => Promise<String>;
+  guids: () => Promise<String[]>;
+}
+
+export interface VipPlayerSubscription
+  extends Promise<AsyncIterator<VipPlayer>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  name: () => Promise<AsyncIterator<String>>;
+  guids: () => Promise<AsyncIterator<String[]>>;
+}
+
+export interface VipPlayerNullablePromise
+  extends Promise<VipPlayer | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  name: () => Promise<String>;
+  guids: () => Promise<String[]>;
+}
+
+export interface VipPlayerConnection {
+  pageInfo: PageInfo;
+  edges: VipPlayerEdge[];
+}
+
+export interface VipPlayerConnectionPromise
+  extends Promise<VipPlayerConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<VipPlayerEdge>>() => T;
+  aggregate: <T = AggregateVipPlayerPromise>() => T;
+}
+
+export interface VipPlayerConnectionSubscription
+  extends Promise<AsyncIterator<VipPlayerConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<VipPlayerEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateVipPlayerSubscription>() => T;
+}
+
+export interface VipPlayerEdge {
+  node: VipPlayer;
+  cursor: String;
+}
+
+export interface VipPlayerEdgePromise
+  extends Promise<VipPlayerEdge>,
+    Fragmentable {
+  node: <T = VipPlayerPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface VipPlayerEdgeSubscription
+  extends Promise<AsyncIterator<VipPlayerEdge>>,
+    Fragmentable {
+  node: <T = VipPlayerSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateVipPlayer {
+  count: Int;
+}
+
+export interface AggregateVipPlayerPromise
+  extends Promise<AggregateVipPlayer>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateVipPlayerSubscription
+  extends Promise<AsyncIterator<AggregateVipPlayer>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface BatchPayload {
   count: Long;
 }
@@ -839,6 +1301,59 @@ export interface BatchPayloadSubscription
   extends Promise<AsyncIterator<BatchPayload>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Long>>;
+}
+
+export interface AdminPlayerSubscriptionPayload {
+  mutation: MutationType;
+  node: AdminPlayer;
+  updatedFields: String[];
+  previousValues: AdminPlayerPreviousValues;
+}
+
+export interface AdminPlayerSubscriptionPayloadPromise
+  extends Promise<AdminPlayerSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = AdminPlayerPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = AdminPlayerPreviousValuesPromise>() => T;
+}
+
+export interface AdminPlayerSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<AdminPlayerSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = AdminPlayerSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = AdminPlayerPreviousValuesSubscription>() => T;
+}
+
+export interface AdminPlayerPreviousValues {
+  id: ID_Output;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+  name: String;
+  guids: String[];
+}
+
+export interface AdminPlayerPreviousValuesPromise
+  extends Promise<AdminPlayerPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  name: () => Promise<String>;
+  guids: () => Promise<String[]>;
+}
+
+export interface AdminPlayerPreviousValuesSubscription
+  extends Promise<AsyncIterator<AdminPlayerPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  name: () => Promise<AsyncIterator<String>>;
+  guids: () => Promise<AsyncIterator<String[]>>;
 }
 
 export interface TokenSubscriptionPayload {
@@ -959,6 +1474,59 @@ export interface UserPreviousValuesSubscription
   resetTokenExpiryDate: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
+export interface VipPlayerSubscriptionPayload {
+  mutation: MutationType;
+  node: VipPlayer;
+  updatedFields: String[];
+  previousValues: VipPlayerPreviousValues;
+}
+
+export interface VipPlayerSubscriptionPayloadPromise
+  extends Promise<VipPlayerSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = VipPlayerPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = VipPlayerPreviousValuesPromise>() => T;
+}
+
+export interface VipPlayerSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<VipPlayerSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = VipPlayerSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = VipPlayerPreviousValuesSubscription>() => T;
+}
+
+export interface VipPlayerPreviousValues {
+  id: ID_Output;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
+  name: String;
+  guids: String[];
+}
+
+export interface VipPlayerPreviousValuesPromise
+  extends Promise<VipPlayerPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
+  name: () => Promise<String>;
+  guids: () => Promise<String[]>;
+}
+
+export interface VipPlayerPreviousValuesSubscription
+  extends Promise<AsyncIterator<VipPlayerPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  name: () => Promise<AsyncIterator<String>>;
+  guids: () => Promise<AsyncIterator<String[]>>;
+}
+
 /*
 The `ID` scalar type represents a unique identifier, often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"4"`) or integer (such as `4`) input value will be accepted as an ID.
 */
@@ -1007,6 +1575,14 @@ export const models: Model[] = [
   },
   {
     name: "Token",
+    embedded: false
+  },
+  {
+    name: "AdminPlayer",
+    embedded: false
+  },
+  {
+    name: "VipPlayer",
     embedded: false
   }
 ];

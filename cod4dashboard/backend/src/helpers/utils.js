@@ -13,6 +13,16 @@ exports.formatDuration = ms => {
     .join(', ');
 };
 
+exports.getTokenFromReq = req => {
+  try {
+    let token = this.getCookieFromReq(req, 'token');
+    if (!token) token = req.headers['authorization'];
+    return token;
+  } catch (error) {
+    return undefined;
+  }
+};
+
 exports.getCookieFromReq = (req, cookieKey) => {
   try {
     const cookie = req.headers.cookie

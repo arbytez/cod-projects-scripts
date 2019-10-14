@@ -15,6 +15,14 @@ var models = [
   {
     name: "Token",
     embedded: false
+  },
+  {
+    name: "AdminPlayer",
+    embedded: false
+  },
+  {
+    name: "VipPlayer",
+    embedded: false
   }
 ];
 exports.Prisma = prisma_lib_1.makePrismaClientClass({

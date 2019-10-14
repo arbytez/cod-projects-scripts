@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const { validateToken } = require('../helpers/auth');
+const { getTokenFromReq } = require('../helpers/utils');
 const signale = require('../logger');
 
 // server port
@@ -29,8 +30,7 @@ app.use(cookieParser());
 
 // decode the JWT so we can get the user on each request
 app.use(async (req, res, next) => {
-  let { token } = req.cookies;
-  if (!token) token = req.headers['authorization'];
+  const token = getTokenFromReq(req);
   if (token) {
     const decodedToken = await validateToken(token);
     if (decodedToken) {
@@ -46,7 +46,7 @@ app.use(async (req, res, next) => {
   if (!req.userId) return next();
   const user = await db.query.user(
     { where: { id: req.userId } },
-    '{ id, username, roles }'
+    '{ id, email, username, roles }'
   );
   req.user = user;
   next();
@@ -93,3 +93,5 @@ server.listen({ port }, () =>
     }:${port}${apollo.graphqlPath}`
   )
 );
+
+module.exports = server;

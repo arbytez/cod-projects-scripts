@@ -3,11 +3,150 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateToken {
+/* GraphQL */ `type AdminPlayer {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  guids: [String!]!
+}
+
+type AdminPlayerConnection {
+  pageInfo: PageInfo!
+  edges: [AdminPlayerEdge]!
+  aggregate: AggregateAdminPlayer!
+}
+
+input AdminPlayerCreateguidsInput {
+  set: [String!]
+}
+
+input AdminPlayerCreateInput {
+  id: ID
+  name: String!
+  guids: AdminPlayerCreateguidsInput
+}
+
+type AdminPlayerEdge {
+  node: AdminPlayer!
+  cursor: String!
+}
+
+enum AdminPlayerOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  name_ASC
+  name_DESC
+}
+
+type AdminPlayerPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  guids: [String!]!
+}
+
+type AdminPlayerSubscriptionPayload {
+  mutation: MutationType!
+  node: AdminPlayer
+  updatedFields: [String!]
+  previousValues: AdminPlayerPreviousValues
+}
+
+input AdminPlayerSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: AdminPlayerWhereInput
+  AND: [AdminPlayerSubscriptionWhereInput!]
+}
+
+input AdminPlayerUpdateguidsInput {
+  set: [String!]
+}
+
+input AdminPlayerUpdateInput {
+  name: String
+  guids: AdminPlayerUpdateguidsInput
+}
+
+input AdminPlayerUpdateManyMutationInput {
+  name: String
+  guids: AdminPlayerUpdateguidsInput
+}
+
+input AdminPlayerWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  AND: [AdminPlayerWhereInput!]
+}
+
+input AdminPlayerWhereUniqueInput {
+  id: ID
+  name: String
+}
+
+type AggregateAdminPlayer {
+  count: Int!
+}
+
+type AggregateToken {
   count: Int!
 }
 
 type AggregateUser {
+  count: Int!
+}
+
+type AggregateVipPlayer {
   count: Int!
 }
 
@@ -20,6 +159,12 @@ scalar DateTime
 scalar Long
 
 type Mutation {
+  createAdminPlayer(data: AdminPlayerCreateInput!): AdminPlayer!
+  updateAdminPlayer(data: AdminPlayerUpdateInput!, where: AdminPlayerWhereUniqueInput!): AdminPlayer
+  updateManyAdminPlayers(data: AdminPlayerUpdateManyMutationInput!, where: AdminPlayerWhereInput): BatchPayload!
+  upsertAdminPlayer(where: AdminPlayerWhereUniqueInput!, create: AdminPlayerCreateInput!, update: AdminPlayerUpdateInput!): AdminPlayer!
+  deleteAdminPlayer(where: AdminPlayerWhereUniqueInput!): AdminPlayer
+  deleteManyAdminPlayers(where: AdminPlayerWhereInput): BatchPayload!
   createToken(data: TokenCreateInput!): Token!
   updateToken(data: TokenUpdateInput!, where: TokenWhereUniqueInput!): Token
   updateManyTokens(data: TokenUpdateManyMutationInput!, where: TokenWhereInput): BatchPayload!
@@ -32,6 +177,12 @@ type Mutation {
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   deleteUser(where: UserWhereUniqueInput!): User
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createVipPlayer(data: VipPlayerCreateInput!): VipPlayer!
+  updateVipPlayer(data: VipPlayerUpdateInput!, where: VipPlayerWhereUniqueInput!): VipPlayer
+  updateManyVipPlayers(data: VipPlayerUpdateManyMutationInput!, where: VipPlayerWhereInput): BatchPayload!
+  upsertVipPlayer(where: VipPlayerWhereUniqueInput!, create: VipPlayerCreateInput!, update: VipPlayerUpdateInput!): VipPlayer!
+  deleteVipPlayer(where: VipPlayerWhereUniqueInput!): VipPlayer
+  deleteManyVipPlayers(where: VipPlayerWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -52,12 +203,18 @@ type PageInfo {
 }
 
 type Query {
+  adminPlayer(where: AdminPlayerWhereUniqueInput!): AdminPlayer
+  adminPlayers(where: AdminPlayerWhereInput, orderBy: AdminPlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AdminPlayer]!
+  adminPlayersConnection(where: AdminPlayerWhereInput, orderBy: AdminPlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AdminPlayerConnection!
   token(where: TokenWhereUniqueInput!): Token
   tokens(where: TokenWhereInput, orderBy: TokenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Token]!
   tokensConnection(where: TokenWhereInput, orderBy: TokenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TokenConnection!
   user(where: UserWhereUniqueInput!): User
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  vipPlayer(where: VipPlayerWhereUniqueInput!): VipPlayer
+  vipPlayers(where: VipPlayerWhereInput, orderBy: VipPlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VipPlayer]!
+  vipPlayersConnection(where: VipPlayerWhereInput, orderBy: VipPlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VipPlayerConnection!
   node(id: ID!): Node
 }
 
@@ -71,8 +228,10 @@ enum Role {
 }
 
 type Subscription {
+  adminPlayer(where: AdminPlayerSubscriptionWhereInput): AdminPlayerSubscriptionPayload
   token(where: TokenSubscriptionWhereInput): TokenSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  vipPlayer(where: VipPlayerSubscriptionWhereInput): VipPlayerSubscriptionPayload
 }
 
 type Token {
@@ -567,6 +726,137 @@ input UserWhereUniqueInput {
   id: ID
   username: String
   email: String
+}
+
+type VipPlayer {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  guids: [String!]!
+}
+
+type VipPlayerConnection {
+  pageInfo: PageInfo!
+  edges: [VipPlayerEdge]!
+  aggregate: AggregateVipPlayer!
+}
+
+input VipPlayerCreateguidsInput {
+  set: [String!]
+}
+
+input VipPlayerCreateInput {
+  id: ID
+  name: String!
+  guids: VipPlayerCreateguidsInput
+}
+
+type VipPlayerEdge {
+  node: VipPlayer!
+  cursor: String!
+}
+
+enum VipPlayerOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  name_ASC
+  name_DESC
+}
+
+type VipPlayerPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  guids: [String!]!
+}
+
+type VipPlayerSubscriptionPayload {
+  mutation: MutationType!
+  node: VipPlayer
+  updatedFields: [String!]
+  previousValues: VipPlayerPreviousValues
+}
+
+input VipPlayerSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: VipPlayerWhereInput
+  AND: [VipPlayerSubscriptionWhereInput!]
+}
+
+input VipPlayerUpdateguidsInput {
+  set: [String!]
+}
+
+input VipPlayerUpdateInput {
+  name: String
+  guids: VipPlayerUpdateguidsInput
+}
+
+input VipPlayerUpdateManyMutationInput {
+  name: String
+  guids: VipPlayerUpdateguidsInput
+}
+
+input VipPlayerWhereInput {
+  id: ID
+  id_not: ID
+  id_in: [ID!]
+  id_not_in: [ID!]
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_contains: ID
+  id_not_contains: ID
+  id_starts_with: ID
+  id_not_starts_with: ID
+  id_ends_with: ID
+  id_not_ends_with: ID
+  createdAt: DateTime
+  createdAt_not: DateTime
+  createdAt_in: [DateTime!]
+  createdAt_not_in: [DateTime!]
+  createdAt_lt: DateTime
+  createdAt_lte: DateTime
+  createdAt_gt: DateTime
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+  updatedAt_not: DateTime
+  updatedAt_in: [DateTime!]
+  updatedAt_not_in: [DateTime!]
+  updatedAt_lt: DateTime
+  updatedAt_lte: DateTime
+  updatedAt_gt: DateTime
+  updatedAt_gte: DateTime
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  AND: [VipPlayerWhereInput!]
+}
+
+input VipPlayerWhereUniqueInput {
+  id: ID
+  name: String
 }
 `
       }

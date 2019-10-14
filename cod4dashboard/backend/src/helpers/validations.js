@@ -37,3 +37,20 @@ exports.validateSignInUser = user => {
     password
   }).validate(user);
 };
+
+exports.validateSearch = search => {
+  return Joi.object({
+    search: Joi.string()
+      .min(1)
+      .max(255)
+      .required(),
+    limit: Joi.number()
+      .min(1)
+      .default(10)
+      .optional(),
+    offset: Joi.number()
+      .min(1)
+      .default(0)
+      .optional()
+  }).validate(search);
+};

@@ -3,17 +3,17 @@ const { AuthenticationError } = require('apollo-server-express');
 const { forwardTo } = require('prisma-binding');
 
 const { prisma } = require('../generated/prisma-client');
-const {
-  checkAuthentication,
-  checkAuthorization,
-  generateToken
-} = require('../../helpers/auth');
-const { getCookieFromReq } = require('../../helpers/utils');
+const { generateToken } = require('../../helpers/auth');
+const { getTokenFromReq } = require('../../helpers/utils');
 const {
   validateUser,
   validateSignInUser,
   validate
 } = require('../../helpers/validations');
+const {
+  checkAuthentication,
+  checkAuthorization
+} = require('../../helpers/auth');
 
 const Mutation = {
   async signIn(parent, args, ctx, info) {
@@ -29,12 +29,12 @@ const Mutation = {
     if (!valid) {
       throw new AuthenticationError('Invalid credentials!');
     }
-    const token = await generateToken(ctx, user);
+    const token = await generateToken(user);
     return { user, token };
   },
   async signOut(parent, args, ctx, info) {
     // delete token from server
-    const token = getCookieFromReq(ctx.req, 'token');
+    const token = getTokenFromReq(ctx.req);
     if (token) {
       await prisma.deleteToken({ content: token });
     }
@@ -49,8 +49,32 @@ const Mutation = {
       password,
       roles: { set: ['PLAYER'] }
     });
-    const token = await generateToken(ctx, user);
+    const token = await generateToken(user);
     return { user, token };
+  },
+  async createAdminPlayer(parent, args, ctx, info) {
+    checkAuthorization(ctx, ['ROOT']);
+    return forwardTo('db')(parent, args, ctx, info);
+  },
+  async createVipPlayer(parent, args, ctx, info) {
+    checkAuthorization(ctx, ['ROOT']);
+    return forwardTo('db')(parent, args, ctx, info);
+  },
+  async updateAdminPlayer(parent, args, ctx, info) {
+    checkAuthorization(ctx, ['ROOT']);
+    return forwardTo('db')(parent, args, ctx, info);
+  },
+  async updateVipPlayer(parent, args, ctx, info) {
+    checkAuthorization(ctx, ['ROOT']);
+    return forwardTo('db')(parent, args, ctx, info);
+  },
+  async deleteAdminPlayer(parent, args, ctx, info) {
+    checkAuthorization(ctx, ['ROOT']);
+    return forwardTo('db')(parent, args, ctx, info);
+  },
+  async deleteVipPlayer(parent, args, ctx, info) {
+    checkAuthorization(ctx, ['ROOT']);
+    return forwardTo('db')(parent, args, ctx, info);
   }
 };
 

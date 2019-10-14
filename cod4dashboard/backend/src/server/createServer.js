@@ -12,7 +12,7 @@ const sqlitedb = require('../sqlitedb/initDb');
 const pubsub = require('./pubsub');
 const db = require('./db');
 const { validateToken } = require('../helpers/auth');
-const { getCookieFromReq } = require('../helpers/utils');
+const { getTokenFromReq } = require('../helpers/utils');
 
 const schema = makeExecutableSchema({
   typeDefs: importSchema('src/server/schema.graphql'),
@@ -59,7 +59,7 @@ function createServer() {
         } catch (error) {}
         try {
           if (webSocket && webSocket.upgradeReq) {
-            const token = getCookieFromReq(webSocket.upgradeReq, 'token');
+            const token = getTokenFromReq(webSocket.upgradeReq);
             if (token) {
               const decodedToken = await validateToken(token);
               if (decodedToken) {

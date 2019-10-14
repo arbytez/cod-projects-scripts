@@ -33,25 +33,21 @@ type Player {
 type CodServerStatus {
   online: Boolean!
   hostname: String!
+  gametype: String!
+  maxclients: Int!
+  upTime: String!
+  map: String!
+  mapStartTime: String!
   version: String!
-  os: String!
-  type: String!
-  map: String!
-  onlinePlayers: [Player]!
-}
-
-type CodServerMiniStatus {
-  online: Boolean!
-  hostname: String!
-  map: String!
+  privateClients: Int!
+  modName: String!
   onlinePlayers: [Player]!
 }
 
 type Query {
   me: UserWithToken
   player(playerId: String!): Player
-  codServerStatus: CodServerStatus!
-  codServerMiniStatus: CodServerMiniStatus!
+  codServerStatus(fullInfo: Boolean): CodServerStatus!
   searchPlayers(search: String!, limit: Int, offset: Int): [Player]!
   admins: [Player]!
   vips: [Player]!
@@ -61,6 +57,18 @@ type Mutation {
   signIn(email: String!, password: String!): UserWithToken
   signOut: Boolean!
   signUp(email: String!, username: String!, password: String!): UserWithToken
+  createAdminPlayer(data: AdminPlayerCreateInput!): AdminPlayer!
+  createVipPlayer(data: VipPlayerCreateInput!): VipPlayer!
+  updateAdminPlayer(
+    data: AdminPlayerUpdateInput!
+    where: AdminPlayerWhereUniqueInput!
+  ): AdminPlayer
+  updateVipPlayer(
+    data: VipPlayerUpdateInput!
+    where: VipPlayerWhereUniqueInput!
+  ): VipPlayer
+  deleteAdminPlayer(where: AdminPlayerWhereUniqueInput!): AdminPlayer
+  deleteVipPlayer(where: VipPlayerWhereUniqueInput!): VipPlayer
 }
 
 type Subscription {

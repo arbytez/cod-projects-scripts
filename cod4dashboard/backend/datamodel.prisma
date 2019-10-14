@@ -28,3 +28,19 @@ type Token {
   expiration: DateTime!
   user: User!
 }
+
+type AdminPlayer {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  name: String! @unique
+  guids: [String]!
+}
+
+type VipPlayer {
+  id: ID! @id
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  name: String! @unique
+  guids: [String]!
+}

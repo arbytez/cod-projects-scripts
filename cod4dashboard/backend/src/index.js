@@ -11,4 +11,6 @@ require('./helpers/errorsFallback');
 require('./sqlitedb/updateDb');
 
 // start apollo graphql server
-require('./server/initServer');
+const server = require('./server/initServer');
+
+module.exports = server;

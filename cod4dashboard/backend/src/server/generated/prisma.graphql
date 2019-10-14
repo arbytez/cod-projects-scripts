@@ -1,11 +1,254 @@
 # source: https://prisma-1.epbe.dynu.net/prisma-cod4dashboard/dev
-# timestamp: Thu Oct 03 2019 15:11:19 GMT+0200 (GMT+02:00)
+# timestamp: Mon Oct 14 2019 13:44:08 GMT+0200 (GMT+02:00)
+
+type AdminPlayer implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  guids: [String!]!
+}
+
+"""A connection to a list of items."""
+type AdminPlayerConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AdminPlayerEdge]!
+  aggregate: AggregateAdminPlayer!
+}
+
+input AdminPlayerCreateguidsInput {
+  set: [String!]
+}
+
+input AdminPlayerCreateInput {
+  id: ID
+  name: String!
+  guids: AdminPlayerCreateguidsInput
+}
+
+"""An edge in a connection."""
+type AdminPlayerEdge {
+  """The item at the end of the edge."""
+  node: AdminPlayer!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum AdminPlayerOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  name_ASC
+  name_DESC
+}
+
+type AdminPlayerPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  guids: [String!]!
+}
+
+type AdminPlayerSubscriptionPayload {
+  mutation: MutationType!
+  node: AdminPlayer
+  updatedFields: [String!]
+  previousValues: AdminPlayerPreviousValues
+}
+
+input AdminPlayerSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AdminPlayerSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: AdminPlayerWhereInput
+}
+
+input AdminPlayerUpdateguidsInput {
+  set: [String!]
+}
+
+input AdminPlayerUpdateInput {
+  name: String
+  guids: AdminPlayerUpdateguidsInput
+}
+
+input AdminPlayerUpdateManyMutationInput {
+  name: String
+  guids: AdminPlayerUpdateguidsInput
+}
+
+input AdminPlayerWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AdminPlayerWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+}
+
+input AdminPlayerWhereUniqueInput {
+  id: ID
+  name: String
+}
+
+type AggregateAdminPlayer {
+  count: Int!
+}
 
 type AggregateToken {
   count: Int!
 }
 
 type AggregateUser {
+  count: Int!
+}
+
+type AggregateVipPlayer {
   count: Int!
 }
 
@@ -25,16 +268,28 @@ scalar Long
 type Mutation {
   createUser(data: UserCreateInput!): User!
   createToken(data: TokenCreateInput!): Token!
+  createAdminPlayer(data: AdminPlayerCreateInput!): AdminPlayer!
+  createVipPlayer(data: VipPlayerCreateInput!): VipPlayer!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateToken(data: TokenUpdateInput!, where: TokenWhereUniqueInput!): Token
+  updateAdminPlayer(data: AdminPlayerUpdateInput!, where: AdminPlayerWhereUniqueInput!): AdminPlayer
+  updateVipPlayer(data: VipPlayerUpdateInput!, where: VipPlayerWhereUniqueInput!): VipPlayer
   deleteUser(where: UserWhereUniqueInput!): User
   deleteToken(where: TokenWhereUniqueInput!): Token
+  deleteAdminPlayer(where: AdminPlayerWhereUniqueInput!): AdminPlayer
+  deleteVipPlayer(where: VipPlayerWhereUniqueInput!): VipPlayer
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertToken(where: TokenWhereUniqueInput!, create: TokenCreateInput!, update: TokenUpdateInput!): Token!
+  upsertAdminPlayer(where: AdminPlayerWhereUniqueInput!, create: AdminPlayerCreateInput!, update: AdminPlayerUpdateInput!): AdminPlayer!
+  upsertVipPlayer(where: VipPlayerWhereUniqueInput!, create: VipPlayerCreateInput!, update: VipPlayerUpdateInput!): VipPlayer!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyTokens(data: TokenUpdateManyMutationInput!, where: TokenWhereInput): BatchPayload!
+  updateManyAdminPlayers(data: AdminPlayerUpdateManyMutationInput!, where: AdminPlayerWhereInput): BatchPayload!
+  updateManyVipPlayers(data: VipPlayerUpdateManyMutationInput!, where: VipPlayerWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyTokens(where: TokenWhereInput): BatchPayload!
+  deleteManyAdminPlayers(where: AdminPlayerWhereInput): BatchPayload!
+  deleteManyVipPlayers(where: VipPlayerWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -67,10 +322,16 @@ type PageInfo {
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   tokens(where: TokenWhereInput, orderBy: TokenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Token]!
+  adminPlayers(where: AdminPlayerWhereInput, orderBy: AdminPlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [AdminPlayer]!
+  vipPlayers(where: VipPlayerWhereInput, orderBy: VipPlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [VipPlayer]!
   user(where: UserWhereUniqueInput!): User
   token(where: TokenWhereUniqueInput!): Token
+  adminPlayer(where: AdminPlayerWhereUniqueInput!): AdminPlayer
+  vipPlayer(where: VipPlayerWhereUniqueInput!): VipPlayer
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   tokensConnection(where: TokenWhereInput, orderBy: TokenOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): TokenConnection!
+  adminPlayersConnection(where: AdminPlayerWhereInput, orderBy: AdminPlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AdminPlayerConnection!
+  vipPlayersConnection(where: VipPlayerWhereInput, orderBy: VipPlayerOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): VipPlayerConnection!
 
   """Fetches an object given its ID"""
   node(
@@ -91,6 +352,8 @@ enum Role {
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   token(where: TokenSubscriptionWhereInput): TokenSubscriptionPayload
+  adminPlayer(where: AdminPlayerSubscriptionWhereInput): AdminPlayerSubscriptionPayload
+  vipPlayer(where: VipPlayerSubscriptionWhereInput): VipPlayerSubscriptionPayload
 }
 
 type Token implements Node {
@@ -998,4 +1261,239 @@ input UserWhereUniqueInput {
   id: ID
   username: String
   email: String
+}
+
+type VipPlayer implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  guids: [String!]!
+}
+
+"""A connection to a list of items."""
+type VipPlayerConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [VipPlayerEdge]!
+  aggregate: AggregateVipPlayer!
+}
+
+input VipPlayerCreateguidsInput {
+  set: [String!]
+}
+
+input VipPlayerCreateInput {
+  id: ID
+  name: String!
+  guids: VipPlayerCreateguidsInput
+}
+
+"""An edge in a connection."""
+type VipPlayerEdge {
+  """The item at the end of the edge."""
+  node: VipPlayer!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum VipPlayerOrderByInput {
+  id_ASC
+  id_DESC
+  createdAt_ASC
+  createdAt_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  name_ASC
+  name_DESC
+}
+
+type VipPlayerPreviousValues {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  guids: [String!]!
+}
+
+type VipPlayerSubscriptionPayload {
+  mutation: MutationType!
+  node: VipPlayer
+  updatedFields: [String!]
+  previousValues: VipPlayerPreviousValues
+}
+
+input VipPlayerSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [VipPlayerSubscriptionWhereInput!]
+
+  """The subscription event gets dispatched when it's listed in mutation_in"""
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: VipPlayerWhereInput
+}
+
+input VipPlayerUpdateguidsInput {
+  set: [String!]
+}
+
+input VipPlayerUpdateInput {
+  name: String
+  guids: VipPlayerUpdateguidsInput
+}
+
+input VipPlayerUpdateManyMutationInput {
+  name: String
+  guids: VipPlayerUpdateguidsInput
+}
+
+input VipPlayerWhereInput {
+  """Logical AND on all given filters."""
+  AND: [VipPlayerWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+}
+
+input VipPlayerWhereUniqueInput {
+  id: ID
+  name: String
 }
