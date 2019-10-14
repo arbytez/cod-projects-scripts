@@ -4,4 +4,6 @@
 
 @tailwind components;
 
+@import './btnComponent.css';
+
 @tailwind utilities;

@@ -1,8 +1,9 @@
 import React from 'react';
-import Link from 'next/link';
+
+import LoginForm from '../components/Login/LoginForm';
 
 function login() {
-  return <div className="italic">Hello login</div>;
+  return <LoginForm />;
 }
 
 export default login;

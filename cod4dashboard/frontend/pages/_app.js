@@ -1,8 +1,13 @@
 import App from 'next/app';
-import Layout from '../components/_App/Layout';
-import { parseCookies, destroyCookie } from 'nookies';
-import { redirectUser } from '../helpers/auth';
 import Router from 'next/router';
+import { parseCookies, destroyCookie } from 'nookies';
+import { ApolloProvider } from '@apollo/react-hooks';
+import axios from 'axios';
+
+import Layout from '../components/_App/Layout';
+import { redirectUser } from '../helpers/auth';
+import withData from '../graphql/withData';
+import { ME_QUERY } from '../graphql/queries';
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -21,10 +26,16 @@ class MyApp extends App {
       }
     } else {
       try {
-        // TODO get user me
-        pageProps.user = user;
+        const payload = {
+          query: ME_QUERY.loc.source.body
+        };
+        const { data } = await axios.post(process.env.ENDPOINT, payload, {
+          headers: { authorization: token }
+        });
+        const user = (data.data.me && data.data.me.user) || null;
+        pageProps.user = { ...user };
       } catch (error) {
-        console.error('Error getting current user', error);
+        console.error(error);
         // 1) Throw out invalid token
         destroyCookie(ctx, 'token');
         // 2) Redirect to login
@@ -47,13 +58,15 @@ class MyApp extends App {
   };
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, apollo } = this.props;
     return (
-      <Layout {...pageProps}>
-        <Component {...pageProps} />
-      </Layout>
+      <ApolloProvider client={apollo}>
+        <Layout {...pageProps}>
+          <Component {...pageProps} />
+        </Layout>
+      </ApolloProvider>
     );
   }
 }
 
-export default MyApp;
+export default withData(MyApp);
