@@ -1,7 +1,0 @@
-const COMMAND_RESPONSES_SUBSCRIPTION = `
-    subscription COMMAND_RESPONSES_SUBSCRIPTION {
-        commandResponses
-    }
-`;
-
-export { COMMAND_RESPONSES_SUBSCRIPTION };
