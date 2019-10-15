@@ -36,7 +36,9 @@ const Mutation = {
     // delete token from server
     const token = getTokenFromReq(ctx.req);
     if (token) {
-      await prisma.deleteToken({ content: token });
+      if (await prisma.token({ content: token })) {
+        await prisma.deleteToken({ content: token });
+      }
     }
     return true;
   },
