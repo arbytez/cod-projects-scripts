@@ -96,6 +96,8 @@ const serverStatus = async (getFullInfo = false) => {
   let res = await getStatus(200);
   let status = {
     online: false,
+    ip: process.env.COD4_SERVER_IP,
+    port: process.env.COD4_SERVER_PORT,
     hostname: '',
     gametype: '',
     maxclients: 0,

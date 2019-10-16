@@ -32,6 +32,8 @@ type Player {
 
 type CodServerStatus {
   online: Boolean!
+  ip: String!
+  port: String!
   hostname: String!
   gametype: String!
   maxclients: Int!
