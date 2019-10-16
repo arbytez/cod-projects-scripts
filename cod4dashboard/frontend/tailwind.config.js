@@ -2,10 +2,14 @@ module.exports = {
   theme: {
     extend: {},
     customForms: theme => ({
+      error: {
+        input: {
+          borderColor: theme('colors.red.600')
+        }
+      },
       default: {
         input: {
-          backgroundColor: theme('colors.gray.100'),
-          borderColor: theme('colors.gray.800')
+          backgroundColor: theme('colors.gray.200')
         }
       }
     })

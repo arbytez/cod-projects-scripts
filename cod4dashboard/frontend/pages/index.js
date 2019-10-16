@@ -1,5 +1,7 @@
+import ServerStatus from '../components/Index/ServerStatus';
+
 function Home() {
-  return <h1 className="italic">Hello Home</h1>;
+  return <ServerStatus />;
 }
 
 export default Home;

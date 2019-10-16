@@ -17,7 +17,7 @@ export default class MyDocument extends Document {
           <link rel="stylesheet" type="text/css" href="/styles.css" />
           <link rel="stylesheet" type="text/css" href="/nprogress.css" />
         </Head>
-        <body className="antialiased bg-gray-200 text-gray-800">
+        <body className="antialiased bg-gray-400 text-gray-900">
           <Main />
           <NextScript />
         </body>

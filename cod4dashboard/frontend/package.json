@@ -31,8 +31,12 @@
     "nookies": "^2.0.8",
     "nprogress": "^0.2.0",
     "react": "^16.10.2",
+    "react-alert": "^6.0.0",
+    "react-alert-template-basic": "^1.0.0",
     "react-dom": "^16.10.2",
     "react-hook-form": "^3.24.0",
+    "react-spinners": "^0.6.1",
+    "react-use": "^12.5.0",
     "subscriptions-transport-ws": "^0.9.16"
   },
   "devDependencies": {

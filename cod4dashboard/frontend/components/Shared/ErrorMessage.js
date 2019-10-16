@@ -1,29 +1,15 @@
 import React from 'react';
 
+import { getGraphQlError } from '../../helpers/utils';
+
 const ErrorMessage = ({ error }) => {
-  if (!error || !error.message) return null;
-  if (
-    error.networkError &&
-    error.networkError.result &&
-    error.networkError.result.errors.length
-  ) {
-    return error.networkError.result.errors.map((error, i) => (
-      <div key={i}>
-        <p data-test="graphql-error">
-          {error.message
-            .replace('GraphQL error: ', '')
-            .replace('Network error: ', '')}
-        </p>
-      </div>
-    ));
-  }
+  const errorMessage = getGraphQlError(error);
   return (
-    <div>
-      <p data-test="graphql-error">
-        {error.message
-          .replace('GraphQL error: ', '')
-          .replace('Network error: ', '')}
-      </p>
+    <div
+      className="font-semibold bg-red-700 rounded-lg"
+      data-test="graphql-error"
+    >
+      {errorMessage}
     </div>
   );
 };

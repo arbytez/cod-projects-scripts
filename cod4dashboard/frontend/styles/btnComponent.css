@@ -1,5 +1,5 @@
 .btn {
-  @apply py-2 px-4 bg-gray-700 rounded-lg;
+  @apply py-2 px-4 text-gray-200 bg-gray-600 rounded-lg;
 }
 
 .btn:hover {
@@ -12,7 +12,7 @@
 }
 
 .btn-primary {
-  @apply bg-blue-600;
+  @apply bg-blue-600 font-bold;
 }
 
 .btn-primary:hover {

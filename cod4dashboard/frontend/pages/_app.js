@@ -1,13 +1,24 @@
 import App from 'next/app';
+import React from 'react';
 import Router from 'next/router';
 import { parseCookies, destroyCookie } from 'nookies';
 import { ApolloProvider } from '@apollo/react-hooks';
 import axios from 'axios';
+import { transitions, positions, Provider as AlertProvider } from 'react-alert';
+import AlertTemplate from 'react-alert-template-basic';
 
 import Layout from '../components/_App/Layout';
 import { redirectUser } from '../helpers/auth';
-import withData from '../graphql/withData';
+import withData from '../components/hoc/withData';
 import { ME_QUERY } from '../graphql/queries';
+
+// react-alert options
+const reactAlertOptions = {
+  position: positions.BOTTOM_CENTER,
+  timeout: 5000,
+  offset: '10px',
+  transition: transitions.FADE
+};
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
@@ -25,6 +36,9 @@ class MyApp extends App {
         redirectUser(ctx, '/login');
       }
     } else {
+      if (ctx.pathname.startsWith('/login')) {
+        redirectUser(ctx, '/');
+      }
       try {
         const payload = {
           query: ME_QUERY.loc.source.body
@@ -61,9 +75,11 @@ class MyApp extends App {
     const { Component, pageProps, apollo } = this.props;
     return (
       <ApolloProvider client={apollo}>
-        <Layout {...pageProps}>
-          <Component {...pageProps} />
-        </Layout>
+        <AlertProvider template={AlertTemplate} {...reactAlertOptions}>
+          <Layout {...pageProps}>
+            <Component {...pageProps} />
+          </Layout>
+        </AlertProvider>
       </ApolloProvider>
     );
   }
