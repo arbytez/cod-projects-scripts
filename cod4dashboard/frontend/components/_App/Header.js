@@ -7,6 +7,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { handleLogout } from '../../helpers/auth';
 import { SIGNOUT_MUTATION } from '../../graphql/mutations';
 import AccountDropdown from './AccountDropdown';
+import Loader from './Loader';
 
 Router.onRouteChangeStart = () => NProgress.start();
 Router.onRouteChangeComplete = () => NProgress.done();
@@ -129,6 +130,7 @@ function Header({ user }) {
           </div>
         </nav>
       )}
+      <Loader />
     </header>
   );
 }

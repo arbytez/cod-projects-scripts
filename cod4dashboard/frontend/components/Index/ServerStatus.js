@@ -8,18 +8,31 @@ import Context from '../../state/context';
 
 import tempdata from './tempdata.json';
 
+let canStartLoading = true;
+
 function ServerStatus({ fullInfo = false }) {
   const { state, dispatch } = React.useContext(Context);
-  // dispatch({ type: 'START_LOADING' });
-  const { loading, error, data, refetch } = useQuery(CODSERVERSTATUS_QUERY, {
-    variables: { fullInfo },
-    onCompleted: () => dispatch({ type: 'STOP_LOADING' }),
-    onError: () => dispatch({ type: 'STOP_LOADING' })
-  });
-  if (error) return <ErrorMessage error={error} />;
-  if (loading) return null;
-  // let loading = false;
-  // let data = tempdata;
+  // if (canStartLoading && !state.loading) {
+  //   dispatch({ type: 'START_LOADING' });
+  //   canStartLoading = false;
+  // }
+  // let { loading, error, data, refetch } = useQuery(CODSERVERSTATUS_QUERY, {
+  //   variables: { fullInfo },
+  //   onCompleted: () => {
+  //     dispatch({ type: 'STOP_LOADING' });
+  //     canStartLoading = false;
+  //   },
+  //   onError: () => {
+  //     dispatch({ type: 'STOP_LOADING' });
+  //     canStartLoading = false;
+  //   }
+  // });
+  let loading = false;
+  let data = tempdata;
+  let error = undefined;
+  console.log(data);
+  data = data || {};
+  data.codServerStatus = data.codServerStatus || {};
   const {
     codServerStatus: {
       hostname,
@@ -37,16 +50,25 @@ function ServerStatus({ fullInfo = false }) {
       port
     }
   } = data;
-  console.log(data);
-  return (
+  return loading ? (
+    <p>loading...</p>
+  ) : error ? (
+    <ErrorMessage error={error} />
+  ) : (
     <div>
       <div className="flex items-center justify-center">
         <GametrackerBanner ip={ip} port={port} />
       </div>
       <button
-        onClick={() => {
-          refetch({ fullInfo });
-          dispatch({ type: 'START_LOADING' });
+        onClick={async () => {
+          try {
+            dispatch({ type: 'START_LOADING' });
+            // await refetch({ fullInfo });
+            canStartLoading = false;
+          } catch (error) {
+          } finally {
+            dispatch({ type: 'STOP_LOADING' });
+          }
         }}
         className="mt-4 btn"
         disabled={loading}

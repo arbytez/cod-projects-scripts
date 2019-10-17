@@ -1,5 +1,7 @@
 const getGraphQlError = error => {
-  if (!error || !error.message) return '';
+  if (!error) return 'Something bad happened.';
+  if (typeof error === 'string') return error;
+  if (!error.message) return 'Something bad happened.';
   if (
     error.networkError &&
     error.networkError.result &&
