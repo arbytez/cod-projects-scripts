@@ -49,7 +49,7 @@ exports.validateSearch = search => {
       .default(10)
       .optional(),
     offset: Joi.number()
-      .min(1)
+      .min(0)
       .default(0)
       .optional()
   }).validate(search);
