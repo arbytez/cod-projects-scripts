@@ -2,7 +2,11 @@ const fs = require('fs');
 const https = require('https');
 const http = require('http');
 const express = require('express');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss-clean');
 const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const hpp = require('hpp');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
@@ -23,7 +27,15 @@ const apollo = createServer();
 const app = express();
 
 // middlewares
+app.use(mongoSanitize());
+app.use(xss());
+app.use(hpp());
 app.use(helmet());
+const limiter = rateLimit({
+  windowMs: 10 * 60 * 1000, // 10 mins
+  max: 100
+});
+app.use(limiter);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
