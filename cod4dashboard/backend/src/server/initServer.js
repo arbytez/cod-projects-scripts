@@ -7,6 +7,7 @@ const xss = require('xss-clean');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
@@ -27,6 +28,7 @@ const apollo = createServer();
 const app = express();
 
 // middlewares
+app.use(cors());
 app.use(mongoSanitize());
 app.use(xss());
 app.use(hpp());
@@ -74,11 +76,7 @@ app.use((err, _, res, next) => {
 });
 
 apollo.applyMiddleware({
-  app,
-  cors: {
-    origin: process.env.FRONTEND_URL,
-    credentials: true
-  }
+  app
 });
 
 // Create the HTTPS or HTTP server, per configuration
