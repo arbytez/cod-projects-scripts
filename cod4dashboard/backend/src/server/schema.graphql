@@ -71,6 +71,7 @@ type Mutation {
   ): VipPlayer
   deleteAdminPlayer(where: AdminPlayerWhereUniqueInput!): AdminPlayer
   deleteVipPlayer(where: VipPlayerWhereUniqueInput!): VipPlayer
+  sendRconCommand(command: String!): String!
 }
 
 type Subscription {

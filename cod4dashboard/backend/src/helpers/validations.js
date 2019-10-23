@@ -54,3 +54,12 @@ exports.validateSearch = search => {
       .optional()
   }).validate(search);
 };
+
+exports.validateCommand = command => {
+  return Joi.object({
+    command: Joi.string()
+      .min(1)
+      .max(255)
+      .required()
+  }).validate(command);
+};

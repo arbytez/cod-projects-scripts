@@ -8,12 +8,14 @@ const { getTokenFromReq } = require('../../helpers/utils');
 const {
   validateUser,
   validateSignInUser,
+  validateCommand,
   validate
 } = require('../../helpers/validations');
 const {
   checkAuthentication,
   checkAuthorization
 } = require('../../helpers/auth');
+const { executeRconCommand } = require('../../cod/rcon');
 
 const Mutation = {
   async signIn(parent, args, ctx, info) {
@@ -53,6 +55,13 @@ const Mutation = {
     });
     const token = await generateToken(user);
     return { user, token };
+  },
+  async sendRconCommand(parent, args, ctx, info) {
+    checkAuthorization(ctx, ['ROOT']);
+    const { command } = args;
+    validate({ command })(validateCommand);
+    const rconResponse = await executeRconCommand(command);
+    return rconResponse;
   },
   async createAdminPlayer(parent, args, ctx, info) {
     checkAuthorization(ctx, ['ROOT']);
