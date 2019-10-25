@@ -63,3 +63,12 @@ exports.validateCommand = command => {
       .required()
   }).validate(command);
 };
+
+exports.validatePlayerSearch = player => {
+  return Joi.object({
+    playerId: Joi.string()
+      .min(1)
+      .max(255)
+      .required()
+  }).validate(player);
+};

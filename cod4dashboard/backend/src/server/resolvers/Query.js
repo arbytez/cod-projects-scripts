@@ -14,7 +14,11 @@ const {
   checkAuthorization
 } = require('../../helpers/auth');
 const { getTokenFromReq } = require('../../helpers/utils');
-const { validate, validateSearch } = require('../../helpers/validations');
+const {
+  validate,
+  validateSearch,
+  validatePlayerSearch
+} = require('../../helpers/validations');
 
 const Query = {
   async me(parent, args, ctx, info) {
@@ -28,6 +32,7 @@ const Query = {
   async player(parent, args, ctx, info) {
     checkAuthorization(ctx, ['ROOT', 'ADMIN', 'MODERATOR', 'VIP']);
     const { playerId } = args;
+    validate({ playerId })(validatePlayerSearch);
     const row = await dbGet(ctx.sqlitedb, playerByIdQuery(playerId));
     if (row.isVip || row.isAdmin) row = setAdminOrVipName(row);
     return row;
