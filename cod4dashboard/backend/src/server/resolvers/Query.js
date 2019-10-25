@@ -18,10 +18,10 @@ const { validate, validateSearch } = require('../../helpers/validations');
 
 const Query = {
   async me(parent, args, ctx, info) {
-    if (!ctx.req || !ctx.req.userId) {
+    if (!ctx.req || !ctx.req.userId || !ctx.req.user) {
       return null;
     }
-    const user = await prisma.user({ id: ctx.req.userId });
+    const user = ctx.req.user; // await prisma.user({ id: ctx.req.userId });
     const token = getTokenFromReq(ctx.req);
     return { user, token };
   },
