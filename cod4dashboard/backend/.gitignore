@@ -3,5 +3,6 @@
 /.build
 /build
 .env*
-/src/logger/logs/**/*.*
+/src/logger/logs
 !*.EXAMPLE
+/src/server/generated
