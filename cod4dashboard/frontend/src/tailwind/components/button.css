@@ -1,0 +1,28 @@
+.btn {
+  @apply py-2 px-4 rounded bg-gray-600 text-white cursor-pointer font-semibold;
+}
+
+.btn:hover {
+  @apply bg-gray-500;
+}
+
+.btn:disabled {
+  @apply bg-gray-400 cursor-default;
+}
+
+.btn:focus,
+.btn:active {
+  @apply shadow-outline;
+}
+
+.btn-primary {
+  @apply bg-blue-600;
+}
+
+.btn-primary:hover {
+  @apply bg-blue-500;
+}
+
+.btn-primary:disabled {
+  @apply bg-gray-400;
+}

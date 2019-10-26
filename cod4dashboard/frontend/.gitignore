@@ -1,5 +1,8 @@
 .next
 node_modules
 out
-.env*.*
-!*.EXAMPLE
+*.env
+!*.example
+package-lock.json
+src/graphql/*.graphql
+src/generated
