@@ -1,7 +1,7 @@
 {
-  "name": "boilerplate-next-tailwind-react-apollo-graphqlcodegen",
+  "name": "cod4dashboard-frontend",
   "version": "1.0.0",
-  "description": "Next.js starter styled with Tailwind CSS, react-apollo and graphql-codegen and other libs",
+  "description": "Cod4dashboard frontend",
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development next",

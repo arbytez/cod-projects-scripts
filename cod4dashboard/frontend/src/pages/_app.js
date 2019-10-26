@@ -20,10 +20,7 @@ class MyApp extends App {
     pageProps.auth = {};
 
     if (!token) {
-      if (
-        !ctx.pathname.startsWith('/login') &&
-        !ctx.pathname.startsWith('/signup')
-      ) {
+      if (!ctx.pathname.startsWith('/login')) {
         redirectUser(ctx, '/login');
       }
     } else {
@@ -33,14 +30,6 @@ class MyApp extends App {
         }).Me();
         if (me && me.token && me.user) {
           const user = me.user;
-          const isRoot = user.roles.includes('ROOT');
-          const isAdmin = user.roles.includes('ADMIN');
-          // if authenticated, but not of role 'admin' or 'root', redirect from '/create' page
-          const isNotPermitted =
-            !(isRoot || isAdmin) && ctx.pathname === '/create';
-          if (isNotPermitted) {
-            redirectUser(ctx, '/');
-          }
           pageProps.auth = { user, isAuth: !!user };
         }
       } catch (error) {

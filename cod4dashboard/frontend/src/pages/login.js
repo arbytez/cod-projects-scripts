@@ -7,11 +7,11 @@ import ErrorMessage from '../components/shared/ErrorMessage';
 import { useSignInMutation } from '../generated/js/graphql';
 
 const INITIAL_USER = {
-  email: '',
-  password: ''
+  email: 'user1@example.com',
+  password: 'user1'
 };
 
-const Login = () => {
+const LoginPage = () => {
   const [user, setUser] = React.useState(INITIAL_USER);
   const [disabled, setDisabled] = React.useState(true);
   const [loading, setLoading] = React.useState(false);
@@ -94,6 +94,6 @@ const Login = () => {
   );
 };
 
-Login.getLayout = page => <Layout>{page}</Layout>;
+LoginPage.getLayout = page => <Layout>{page}</Layout>;
 
-export default Login;
+export default LoginPage;

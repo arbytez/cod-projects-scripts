@@ -21,11 +21,7 @@ function Header(props) {
           <nav className="relative flex flex-wrap items-center justify-between md:py-4">
             <div className="relative z-10 flex-shrink-0 pl-4 py-4 md:p-0 cursor-pointer">
               <Link href="/">
-                <img
-                  className="h-8 w-8"
-                  src="https://via.placeholder.com/25"
-                  alt="logo"
-                />
+                <img className="h-8 w-8" src="/images/Logo.png" alt="logo" />
               </Link>
             </div>
             <div className="flex-shrink-0 pr-4 md:hidden">
@@ -48,51 +44,62 @@ function Header(props) {
             </div>
             <div className="hidden md:block md:ml-10 md:flex md:items-baseline md:justify-between md:bg-transparent">
               <div className="lg:absolute inset-0 flex items-center justify-center">
-                <Link href="/">
-                  <a
-                    className={`${
-                      isActive('/') ? 'underline' : ''
-                    } text-sm font-medium text-gray-900 hover:text-gray-700`}
-                  >
-                    App
-                  </a>
-                </Link>
-                <Link href="/about">
-                  <a
-                    className={`${
-                      isActive('/about') ? 'underline' : ''
-                    } ml-10 text-sm font-medium text-gray-900 hover:text-gray-700`}
-                  >
-                    About
-                  </a>
-                </Link>
-              </div>
-              <div className="ml-10 relative flex items-baseline">
-                {!auth.isAuth ? (
+                {auth.isAuth && (
                   <>
-                    <Link href="/login">
+                    <Link href="/">
                       <a
                         className={`${
-                          isActive('/login') ? 'underline' : ''
-                        } text-sm font-medium text-gray-900 hover:text-gray-700`}
+                          isActive('/') ? 'underline' : ''
+                        } text-sm font-medium text-gray-900 hover:text-gray-700 py-2 px-2`}
                       >
-                        Log in
+                        Players
                       </a>
                     </Link>
-                    <Link href="/signup">
+                    <Link href="/status">
                       <a
                         className={`${
-                          isActive('/signup') ? 'underline' : ''
-                        } ml-8 px-3 py-2 font-medium text-center text-sm rounded-lg bg-gray-300 text-gray-900 hover:bg-gray-400 focus:outline-none focus:bg-gray-400`}
+                          isActive('/status') ? 'underline' : ''
+                        } ml-10 text-sm font-medium text-gray-900 hover:text-gray-700 py-2 px-2`}
                       >
-                        Create Account
+                        Status
+                      </a>
+                    </Link>
+                    <Link href="/adminsvips">
+                      <a
+                        className={`${
+                          isActive('/adminsvips') ? 'underline' : ''
+                        } ml-10 text-sm font-medium text-gray-900 hover:text-gray-700 py-2 px-2`}
+                      >
+                        Admins &amp; Vips
+                      </a>
+                    </Link>
+                    <Link href="/console">
+                      <a
+                        className={`${
+                          isActive('/console') ? 'underline' : ''
+                        } ml-10 text-sm font-medium text-gray-900 hover:text-gray-700 py-2 px-2`}
+                      >
+                        Console
                       </a>
                     </Link>
                   </>
+                )}
+              </div>
+              <div className="ml-10 relative flex items-baseline">
+                {!auth.isAuth ? (
+                  <Link href="/login">
+                    <a
+                      className={`${
+                        isActive('/login') ? 'underline' : ''
+                      } text-sm font-medium text-gray-900 hover:text-gray-700 py-2 px-2`}
+                    >
+                      Log in
+                    </a>
+                  </Link>
                 ) : (
                   <span
                     onClick={handleLogout}
-                    className="text-sm font-medium text-gray-900 hover:text-gray-700 cursor-pointer"
+                    className="text-sm font-medium text-gray-900 hover:text-gray-700 cursor-pointer py-2 px-2"
                   >
                     Sign Out
                   </span>
@@ -139,73 +146,71 @@ function Header(props) {
                   <Link href="/">
                     <img
                       className="h-8 w-8 cursor-pointer"
-                      src="https://via.placeholder.com/25"
+                      src="/images/Logo.png"
                       alt="logo"
                     />
                   </Link>
-                  <Link href="/">
-                    <a
-                      className={`${
-                        isActive('/') ? 'underline' : ''
-                      } mt-8 block font-medium text-gray-900 hover:text-gray-700`}
-                    >
-                      App
-                    </a>
-                  </Link>
-                  <Link href="/about">
-                    <a
-                      className={`${
-                        isActive('/about') ? 'underline' : ''
-                      } mt-4 block font-medium text-gray-900 hover:text-gray-700`}
-                    >
-                      About
-                    </a>
-                  </Link>
+                  {auth.isAuth && (
+                    <>
+                      <Link href="/">
+                        <a
+                          className={`${
+                            isActive('/') ? 'underline' : ''
+                          } mt-8 block font-medium text-gray-900 hover:text-gray-700`}
+                        >
+                          Players
+                        </a>
+                      </Link>
+                      <Link href="/status">
+                        <a
+                          className={`${
+                            isActive('/status') ? 'underline' : ''
+                          } mt-4 block font-medium text-gray-900 hover:text-gray-700`}
+                        >
+                          Status
+                        </a>
+                      </Link>
+                      <Link href="/adminsvips">
+                        <a
+                          className={`${
+                            isActive('/adminsvips') ? 'underline' : ''
+                          } mt-4 block font-medium text-gray-900 hover:text-gray-700`}
+                        >
+                          Admins &amp; Vips
+                        </a>
+                      </Link>
+                      <Link href="/console">
+                        <a
+                          className={`${
+                            isActive('/console') ? 'underline' : ''
+                          } mt-4 block font-medium text-gray-900 hover:text-gray-700`}
+                        >
+                          Console
+                        </a>
+                      </Link>
+                    </>
+                  )}
                 </div>
-                <div className="border-t-2 border-gray-200 px-4 pt-6">
-                  <Link href="#">
-                    <a className="block font-medium text-gray-900 hover:text-gray-700">
-                      Todo 1
-                    </a>
-                  </Link>
-                  <Link href="#">
-                    <a className="mt-4 block font-medium text-gray-900 hover:text-gray-700">
-                      Todo 2
-                    </a>
-                  </Link>
-                </div>
+                <div className="border-t-2 border-gray-200 px-4 pt-6"></div>
               </div>
               <div className="relative bg-white">
                 {!auth.isAuth ? (
-                  <>
-                    <div className="px-4 pt-4 pb-6">
-                      <Link href="/login">
-                        <a
-                          className={`${
-                            isActive('/login') ? 'underline' : ''
-                          } block font-medium text-gray-900 hover:text-gray-700`}
-                        >
-                          Log in
-                        </a>
-                      </Link>
-                    </div>
-                    <div className="p-4">
-                      <Link href="/signup">
-                        <a
-                          className={`${
-                            isActive('/signup') ? 'underline' : ''
-                          } block px-3 py-3 font-medium text-center bg-gray-300 rounded-lg text-gray-900 hover:bg-gray-400 focus:outline-none focus:bg-gray-400`}
-                        >
-                          Create Account
-                        </a>
-                      </Link>
-                    </div>
-                  </>
+                  <div className="px-4 pt-2 pb-6">
+                    <Link href="/login">
+                      <a
+                        className={`${
+                          isActive('/login') ? 'underline' : ''
+                        } block font-medium text-gray-900 hover:text-gray-700`}
+                      >
+                        Log in
+                      </a>
+                    </Link>
+                  </div>
                 ) : (
-                  <div className="px-4 pt-4 pb-6">
+                  <div className="px-4 pt-2 pb-6">
                     <span
                       onClick={handleLogout}
-                      className="block font-medium text-gray-900 hover:text-gray-700"
+                      className="block font-medium text-gray-900 hover:text-gray-700 cursor-pointer"
                     >
                       Sign Out
                     </span>
