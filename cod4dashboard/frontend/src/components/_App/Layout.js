@@ -4,6 +4,7 @@ import NProgress from 'nprogress';
 import Header from './Header';
 
 import '../../tailwind/tailwind.css';
+// import withContext from '../hoc/withContext';
 
 Router.onRouteChangeStart = () => {
   NProgress.start();
@@ -22,7 +23,7 @@ function Layout(props) {
         <Header {...props.children.props} /> {/* with Footer */}
       </div>
       <div className="flex-col overflow-y-hidden">
-        <div className="flex-1 overflow-y-auto m-4 mt-20 p-4">
+        <div className="flex-1 overflow-y-auto m-1 mt-20 mb-8 p-1">
           <main>{props.children}</main>
         </div>
       </div>

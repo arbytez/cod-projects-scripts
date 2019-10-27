@@ -1,8 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
+import { getErrorMessage } from '../../utils/catchErrors';
 
 function ErrorMessage(props) {
-  const { message } = props;
+  const { error } = props;
+  const message = getErrorMessage(error);
   return (
     <>
       {message ? (
@@ -16,10 +18,6 @@ function ErrorMessage(props) {
 
 ErrorMessage.defaultProps = {
   error: ''
-};
-
-ErrorMessage.propTypes = {
-  error: PropTypes.string
 };
 
 export default ErrorMessage;

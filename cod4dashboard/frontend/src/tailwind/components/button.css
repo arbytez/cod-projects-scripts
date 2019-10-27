@@ -1,5 +1,5 @@
 .btn {
-  @apply py-2 px-4 rounded bg-gray-600 text-white cursor-pointer font-semibold;
+  @apply py-2 px-4 rounded-lg bg-gray-600 text-white cursor-pointer font-semibold;
 }
 
 .btn:hover {
@@ -7,7 +7,7 @@
 }
 
 .btn:disabled {
-  @apply bg-gray-400 cursor-default;
+  @apply bg-gray-400 cursor-not-allowed;
 }
 
 .btn:focus,

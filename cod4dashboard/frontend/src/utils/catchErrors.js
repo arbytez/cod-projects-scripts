@@ -9,7 +9,7 @@ export const getErrorMessage = error => {
       return error;
     case 'object':
       if (!error || !error.message) {
-        return 'Something has failed.';
+        return '';
       }
       if (
         error.networkError &&
@@ -24,7 +24,13 @@ export const getErrorMessage = error => {
       errorMsg = errorMsg
         .replace('GraphQL error: ', '')
         .replace('Network error: ', '');
+      const errorParsed = errorMsg.match(/^(.*): {".*$/);
+      if (errorParsed) {
+        errorMsg = errorParsed[1];
+      }
       return errorMsg;
+    case 'undefined':
+      return '';
     default:
       return 'Something has failed.';
   }
