@@ -33,11 +33,14 @@ app.use(mongoSanitize());
 app.use(xss());
 app.use(hpp());
 app.use(helmet());
-const limiter = rateLimit({
-  windowMs: 10 * 60 * 1000, // 10 mins
-  max: 100
-});
-app.use(limiter);
+// rate limit middleware only in production
+if (process.env.NODE_ENV === 'production') {
+  const limiter = rateLimit({
+    windowMs: 10 * 60 * 1000, // 10 mins
+    max: 100
+  });
+  app.use(limiter);
+}
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());

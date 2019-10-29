@@ -6,7 +6,7 @@ import Footer from './Footer';
 import { handleLogout } from '../../utils/auth';
 
 function Header(props) {
-  const { auth } = props;
+  const { auth = {} } = props;
   const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(false);
 

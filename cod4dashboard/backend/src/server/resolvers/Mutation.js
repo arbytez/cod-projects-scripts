@@ -9,6 +9,9 @@ const {
   validateUser,
   validateSignInUser,
   validateCommand,
+  validateCreateAdminOrVipPlayer,
+  validateDeleteAdminOrVipPlayer,
+  validateUpdateAdminOrVipPlayer,
   validate
 } = require('../../helpers/validations');
 const {
@@ -65,26 +68,68 @@ const Mutation = {
   },
   async createAdminPlayer(parent, args, ctx, info) {
     checkAuthorization(ctx, ['ROOT']);
+    const {
+      data: {
+        guids: { set },
+        name
+      }
+    } = args;
+    validate({ name, guids: set })(validateCreateAdminOrVipPlayer);
+    args.data.guids.set = [...new Set(args.data.guids.set)];
     return forwardTo('db')(parent, args, ctx, info);
   },
   async createVipPlayer(parent, args, ctx, info) {
     checkAuthorization(ctx, ['ROOT']);
+    const {
+      data: {
+        guids: { set },
+        name
+      }
+    } = args;
+    validate({ name, guids: set })(validateCreateAdminOrVipPlayer);
+    args.data.guids.set = [...new Set(args.data.guids.set)];
     return forwardTo('db')(parent, args, ctx, info);
   },
   async updateAdminPlayer(parent, args, ctx, info) {
     checkAuthorization(ctx, ['ROOT']);
+    const {
+      where: { id },
+      data: {
+        guids: { set },
+        name
+      }
+    } = args;
+    validate({ id, name, guids: set })(validateUpdateAdminOrVipPlayer);
+    args.data.guids.set = [...new Set(args.data.guids.set)];
     return forwardTo('db')(parent, args, ctx, info);
   },
   async updateVipPlayer(parent, args, ctx, info) {
     checkAuthorization(ctx, ['ROOT']);
+    const {
+      where: { id },
+      data: {
+        guids: { set },
+        name
+      }
+    } = args;
+    validate({ id, name, guids: set })(validateUpdateAdminOrVipPlayer);
+    args.data.guids.set = [...new Set(args.data.guids.set)];
     return forwardTo('db')(parent, args, ctx, info);
   },
   async deleteAdminPlayer(parent, args, ctx, info) {
     checkAuthorization(ctx, ['ROOT']);
+    const {
+      where: { id }
+    } = args;
+    validate({ id })(validateDeleteAdminOrVipPlayer);
     return forwardTo('db')(parent, args, ctx, info);
   },
   async deleteVipPlayer(parent, args, ctx, info) {
     checkAuthorization(ctx, ['ROOT']);
+    const {
+      where: { id }
+    } = args;
+    validate({ id })(validateDeleteAdminOrVipPlayer);
     return forwardTo('db')(parent, args, ctx, info);
   }
 };

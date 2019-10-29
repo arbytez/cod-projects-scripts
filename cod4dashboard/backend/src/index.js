@@ -10,6 +10,9 @@ require('./helpers/errorsFallback');
 // start the update sqlitedb process
 require('./sqlitedb/updateDb');
 
+// fix joi objectId validation
+require('./helpers/fixObjectIdValidation')();
+
 // start apollo graphql server
 const server = require('./server/initServer');
 

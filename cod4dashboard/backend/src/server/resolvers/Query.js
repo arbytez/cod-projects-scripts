@@ -1,4 +1,5 @@
 const { prisma } = require('../generated/prisma-client');
+const { forwardTo } = require('prisma-binding');
 
 const { serverStatus } = require('../../cod/rcon');
 const {
@@ -96,6 +97,14 @@ const Query = {
       if (row.isVip || row.isAdmin) row = setAdminOrVipName(row);
       return row;
     });
+  },
+  async adminPlayers(parent, args, ctx, info) {
+    checkAuthorization(ctx, ['ROOT']);
+    return forwardTo('db')(parent, args, ctx, info);
+  },
+  async vipPlayers(parent, args, ctx, info) {
+    checkAuthorization(ctx, ['ROOT']);
+    return forwardTo('db')(parent, args, ctx, info);
   }
 };
 

@@ -53,6 +53,24 @@ type Query {
   searchPlayers(search: String!, limit: Int, offset: Int): [Player]!
   admins: [Player]!
   vips: [Player]!
+  adminPlayers(
+    where: AdminPlayerWhereInput
+    orderBy: AdminPlayerOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [AdminPlayer]!
+  vipPlayers(
+    where: VipPlayerWhereInput
+    orderBy: VipPlayerOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [VipPlayer]!
 }
 
 type Mutation {

@@ -58,7 +58,7 @@ const LoginForm = () => {
     <>
       <form
         onSubmit={handleSubmit}
-        className="block mx-auto w-full sm:w-3/5 md:w-2/5 lg:w-1/3 xl:w-1/4"
+        className="block mx-auto w-full sm:w-3/4 md:w-3/5 lg:w-2/5"
       >
         <label className="block">
           <span className="text-gray-700">Email</span>

@@ -9,7 +9,7 @@
     "export": "cross-env NODE_ENV=production npm run build && next export",
     "start": "cross-env NODE_ENV=production next start",
     "clean": "rimraf ./out && rimraf ./.next",
-    "generate": "rimraf ./src/generated/js && npm-run-all graphqlcodegen tsc",
+    "generate": "rimraf ./src/generated && npm-run-all graphqlcodegen tsc",
     "graphqlcodegen": "graphql-codegen",
     "tsc": "tsc -p ./src/config/tsconfig.codegen.json"
   },

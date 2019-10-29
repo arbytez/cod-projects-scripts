@@ -1,5 +1,7 @@
 const Joi = require('@hapi/joi');
 
+const mongoObjectId = Joi.objectId().required();
+
 const username = Joi.string()
   .min(3)
   .max(50)
@@ -71,4 +73,41 @@ exports.validatePlayerSearch = player => {
       .max(255)
       .required()
   }).validate(player);
+};
+
+exports.validateCreateAdminOrVipPlayer = adminOrVipPlayer => {
+  return Joi.object({
+    name: Joi.string()
+      .max(255)
+      .required(),
+    guids: Joi.array()
+      .items(
+        Joi.string()
+          .min(1)
+          .max(255)
+      )
+      .optional()
+  }).validate(adminOrVipPlayer);
+};
+
+exports.validateUpdateAdminOrVipPlayer = adminOrVipPlayer => {
+  return Joi.object({
+    id: mongoObjectId,
+    name: Joi.string()
+      .max(255)
+      .optional(),
+    guids: Joi.array()
+      .items(
+        Joi.string()
+          .min(1)
+          .max(255)
+      )
+      .optional()
+  }).validate(adminOrVipPlayer);
+};
+
+exports.validateDeleteAdminOrVipPlayer = adminOrVipPlayer => {
+  return Joi.object({
+    id: mongoObjectId
+  }).validate(adminOrVipPlayer);
 };

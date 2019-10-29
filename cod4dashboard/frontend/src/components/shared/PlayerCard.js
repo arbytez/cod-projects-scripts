@@ -20,8 +20,8 @@ const PlayerProperty = ({ title, value1, value2 = '' }) => {
   );
 };
 
-function PlayerCard({ player }) {
-  console.log(player);
+function PlayerCard({ player, index }) {
+  const [isOpen, setIsOpen] = React.useState(true);
   let {
     playerGUID = '--',
     adminName = '--',
@@ -53,18 +53,41 @@ function PlayerCard({ player }) {
   } = player;
   const aliasesArray = aliases.split(',');
   return (
-    <ul className="m-1 py-1 px-2 bg-blue-200">
+    <ul
+      className={`${
+        index % 2 ? 'bg-blue-100' : 'bg-white'
+      } m-1 py-1 px-2 shadow`}
+    >
       <div className="mt-1 px-2">
         <div className="flex flex-wrap justify-between items-center">
-          <p className="font-semibold pr-2">Aliases:</p>
+          <p className="font-semibold pr-2">Aliases ({aliasesArray.length})</p>
           {isVip ? <p className="font-semibold">VIP {vipName}</p> : null}
           {isAdmin ? <p className="font-semibold">ADMIN {adminName}</p> : null}
         </div>
-        <ul className="flex flex-wrap justify-start items-center">
-          {aliasesArray.map((alias, i) => {
-            return <li key={i}>{alias}</li>;
-          })}
-        </ul>
+        <button
+          className="m-1 p-1 underline italic cursor-pointer focus:shadow-outline"
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
+        >
+          {isOpen ? 'Hide aliases' : 'Show aliases'}
+        </button>
+        {isOpen && (
+          <ul className="flex flex-wrap justify-start items-center">
+            {aliasesArray.map((alias, i) => {
+              return (
+                <li
+                  className="flex flex-wrap items-center justify-start"
+                  key={i}
+                >
+                  <span className="m-1 px-2 py-1 bg-gray-300 rounded-lg">
+                    {alias}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </div>
       <div className="flex flex-wrap justify-start items-start">
         <PlayerProperty title="GUID" value1={playerGUID} />
@@ -93,9 +116,9 @@ function PlayerCard({ player }) {
             new Date(lastActivityDate * 1000)
           )} ago`}
         />
-        <PlayerProperty title="Connections" value1={connections} />
         <PlayerProperty title="First player IP" value1={firstActivityIP} />
         <PlayerProperty title="Last player IP" value1={playerIP} />
+        <PlayerProperty title="Connections" value1={connections} />
         <PlayerProperty title="Kills" value1={kills} />
         <PlayerProperty title="Deaths" value1={deaths} />
         <PlayerProperty
@@ -114,11 +137,13 @@ function PlayerCard({ player }) {
 }
 
 PlayerCard.defaultProps = {
-  player: {}
+  player: {},
+  index: 0
 };
 
 PlayerCard.propTypes = {
-  player: PropTypes.object
+  player: PropTypes.object,
+  index: PropTypes.number
 };
 
 export default PlayerCard;
