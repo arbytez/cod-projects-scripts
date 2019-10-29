@@ -7,7 +7,7 @@ import EditVips from '../../components/AdminsVips/EditVips';
 function EditVipsPage() {
   return (
     <>
-      <div className="mt-8">
+      <div className="mt-4">
         <EditVips />
       </div>
     </>

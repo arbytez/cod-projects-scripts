@@ -7,7 +7,7 @@ const LoginPage = () => {
   return (
     <>
       <h3 className="text-2xl font-semibold">Login</h3>
-      <div className="mt-8">
+      <div className="mt-4">
         <LoginForm />
       </div>
     </>

@@ -7,7 +7,7 @@ import AdminsVips from '../../components/AdminsVips/AdminsVips';
 function AdminsVipsPage() {
   return (
     <>
-      <div className="mt-8">
+      <div className="mt-4">
         <AdminsVips />
       </div>
     </>

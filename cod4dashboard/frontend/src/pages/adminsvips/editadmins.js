@@ -7,7 +7,7 @@ import EditAdmins from '../../components/AdminsVips/EditAdmins';
 function EditAdminsPage() {
   return (
     <>
-      <div className="mt-8">
+      <div className="mt-4">
         <EditAdmins />
       </div>
     </>

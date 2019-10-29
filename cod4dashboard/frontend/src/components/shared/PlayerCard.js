@@ -51,7 +51,7 @@ function PlayerCard({ player, index }) {
     teamKills = 0,
     vipName = '--'
   } = player;
-  const aliasesArray = aliases.split(',');
+  const aliasesArray = aliases.split(',').filter(alias => alias);
   return (
     <ul
       className={`${
@@ -61,8 +61,26 @@ function PlayerCard({ player, index }) {
       <div className="mt-1 px-2">
         <div className="flex flex-wrap justify-between items-center">
           <p className="font-semibold pr-2">Aliases ({aliasesArray.length})</p>
-          {isVip ? <p className="font-semibold">VIP {vipName}</p> : null}
-          {isAdmin ? <p className="font-semibold">ADMIN {adminName}</p> : null}
+          {isVip ? (
+            <div className="flex font-semibold">
+              <span className="px-2 bg-yellow-400 border border-black border-r-0 rounded-l-lg">
+                VIP
+              </span>
+              <span className="px-2 bg-white border border-black rounded-r-lg">
+                {vipName}
+              </span>
+            </div>
+          ) : null}
+          {isAdmin ? (
+            <div className="flex font-semibold">
+              <span className="px-2 bg-red-400 border border-black border-r-0 rounded-l-lg">
+                ADMIN
+              </span>
+              <span className="px-2 bg-white border border-black rounded-r-lg">
+                {adminName}
+              </span>
+            </div>
+          ) : null}
         </div>
         <button
           className="m-1 p-1 underline italic cursor-pointer focus:shadow-outline"
