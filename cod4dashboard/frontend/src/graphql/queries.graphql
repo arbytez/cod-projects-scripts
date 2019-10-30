@@ -1,0 +1,234 @@
+query Me {
+  me {
+    user {
+      id
+      username
+      email
+      roles
+    }
+    token
+  }
+}
+
+query CodServerStatus($fullInfo: Boolean = false) {
+  codServerStatus(fullInfo: $fullInfo) {
+    online
+    ip
+    port
+    hostname
+    map
+    gametype
+    maxclients
+    upTime
+    mapStartTime
+    version
+    privateClients
+    modName
+    onlinePlayers {
+      playerID
+      playerGUID
+      aliases
+      firstActivityDate
+      lastActivityDate
+      firstActivityIP
+      playerIP
+      port
+      connections
+      onlineTime
+      online
+      punishmentScore
+      kills
+      deaths
+      headShots
+      teamKills
+      teamDeaths
+      selfKills
+      steamid
+      pid
+      score
+      ping
+      name
+      isVip
+      isAdmin
+      vipName
+      adminName
+    }
+  }
+}
+
+query AdminsAndVips {
+  admins {
+    playerID
+    playerGUID
+    aliases
+    firstActivityDate
+    lastActivityDate
+    firstActivityIP
+    playerIP
+    port
+    connections
+    onlineTime
+    online
+    punishmentScore
+    kills
+    deaths
+    headShots
+    teamKills
+    teamDeaths
+    selfKills
+    steamid
+    pid
+    score
+    ping
+    name
+    isVip
+    isAdmin
+    vipName
+    adminName
+  }
+  vips {
+    playerID
+    playerGUID
+    aliases
+    firstActivityDate
+    lastActivityDate
+    firstActivityIP
+    playerIP
+    port
+    connections
+    onlineTime
+    online
+    punishmentScore
+    kills
+    deaths
+    headShots
+    teamKills
+    teamDeaths
+    selfKills
+    steamid
+    pid
+    score
+    ping
+    name
+    isVip
+    isAdmin
+    vipName
+    adminName
+  }
+}
+
+query Admins {
+  admins {
+    playerID
+    playerGUID
+    aliases
+    firstActivityDate
+    lastActivityDate
+    firstActivityIP
+    playerIP
+    port
+    connections
+    onlineTime
+    online
+    punishmentScore
+    kills
+    deaths
+    headShots
+    teamKills
+    teamDeaths
+    selfKills
+    steamid
+    pid
+    score
+    ping
+    name
+    isVip
+    isAdmin
+    vipName
+    adminName
+  }
+}
+
+query Vips {
+  vips {
+    playerID
+    playerGUID
+    aliases
+    firstActivityDate
+    lastActivityDate
+    firstActivityIP
+    playerIP
+    port
+    connections
+    onlineTime
+    online
+    punishmentScore
+    kills
+    deaths
+    headShots
+    teamKills
+    teamDeaths
+    selfKills
+    steamid
+    pid
+    score
+    ping
+    name
+    isVip
+    isAdmin
+    vipName
+    adminName
+  }
+}
+
+query SearchPlayers($search: String!, $limit: Int = 100, $offset: Int = 0) {
+  searchPlayers(search: $search, limit: $limit, offset: $offset) {
+    playerID
+    playerGUID
+    aliases
+    firstActivityDate
+    lastActivityDate
+    firstActivityIP
+    playerIP
+    port
+    connections
+    onlineTime
+    online
+    punishmentScore
+    kills
+    deaths
+    headShots
+    teamKills
+    teamDeaths
+    selfKills
+    steamid
+    pid
+    score
+    ping
+    name
+    isVip
+    isAdmin
+    vipName
+    adminName
+  }
+}
+
+query AdminPlayers {
+  adminPlayers {
+    id
+    createdAt
+    updatedAt
+    name
+    guids
+  }
+}
+
+query VipPlayers {
+  vipPlayers {
+    id
+    createdAt
+    updatedAt
+    name
+    guids
+  }
+}

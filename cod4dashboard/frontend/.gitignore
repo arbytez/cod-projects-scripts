@@ -4,5 +4,4 @@ out
 *.env
 !*.example
 package-lock.json
-src/graphql/*.graphql
 src/generated

@@ -1,0 +1,97 @@
+mutation SignIn($email: String!, $password: String!) {
+  signIn(email: $email, password: $password) {
+    user {
+      id
+      username
+      email
+      roles
+    }
+    token
+  }
+}
+
+mutation SignUp($email: String!, $username: String!, $password: String!) {
+  signUp(email: $email, username: $username, password: $password) {
+    user {
+      id
+      username
+      email
+      roles
+    }
+    token
+  }
+}
+
+mutation SignOut {
+  signOut
+}
+
+mutation SendRconCommand($command: String!) {
+  sendRconCommand(command: $command)
+}
+
+mutation CreateAdminPlayer($name: String!, $guids: [String!]) {
+  createAdminPlayer(data: { name: $name, guids: { set: $guids } }) {
+    id
+    createdAt
+    updatedAt
+    name
+    guids
+  }
+}
+
+mutation CreateVipPlayer($name: String!, $guids: [String!]) {
+  createVipPlayer(data: { name: $name, guids: { set: $guids } }) {
+    id
+    createdAt
+    updatedAt
+    name
+    guids
+  }
+}
+
+mutation UpdateAdminPlayer($id: ID!, $name: String, $guids: [String!]) {
+  updateAdminPlayer(
+    where: { id: $id }
+    data: { name: $name, guids: { set: $guids } }
+  ) {
+    id
+    createdAt
+    updatedAt
+    name
+    guids
+  }
+}
+
+mutation UpdateVipPlayer($id: ID!, $name: String, $guids: [String!]) {
+  updateVipPlayer(
+    where: { id: $id }
+    data: { name: $name, guids: { set: $guids } }
+  ) {
+    id
+    createdAt
+    updatedAt
+    name
+    guids
+  }
+}
+
+mutation DeleteAdminPlayer($id: ID!) {
+  deleteAdminPlayer(where: { id: $id }) {
+    id
+    createdAt
+    updatedAt
+    name
+    guids
+  }
+}
+
+mutation DeleteVipPlayer($id: ID!) {
+  deleteVipPlayer(where: { id: $id }) {
+    id
+    createdAt
+    updatedAt
+    name
+    guids
+  }
+}
