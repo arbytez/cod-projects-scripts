@@ -2,3 +2,7 @@
 /.next
 /.build
 /build
+.env*
+/src/logger/logs
+!*.EXAMPLE
+/src/server/generated

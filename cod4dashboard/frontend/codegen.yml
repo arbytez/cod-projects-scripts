@@ -1,0 +1,19 @@
+schema: http://localhost:4000/graphql
+documents: ./src/**/*.graphql
+config:
+  scalars:
+    DateTime: Date
+generates:
+  ./src/generated/ts/graphql.tsx:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withHooks: true
+      withHOC: true
+  ./src/generated/ts/sdk.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-graphql-request

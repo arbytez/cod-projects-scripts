@@ -1,0 +1,109 @@
+# import * from './generated/prisma.graphql'
+
+type Player {
+  playerID: Int
+  playerGUID: String
+  aliases: String
+  firstActivityDate: Int
+  lastActivityDate: Int
+  firstActivityIP: String
+  playerIP: String
+  port: Int
+  connections: Int
+  onlineTime: Int
+  online: Int
+  punishmentScore: Int
+  kills: Int
+  deaths: Float
+  headShots: Int
+  teamKills: Int
+  teamDeaths: Int
+  selfKills: Int
+  steamid: String
+  pid: Int
+  score: Int
+  ping: Int
+  name: String
+  isVip: Int
+  isAdmin: Int
+  vipName: String
+  adminName: String
+}
+
+type CodServerStatus {
+  online: Boolean!
+  ip: String!
+  port: String!
+  hostname: String!
+  gametype: String!
+  maxclients: Int!
+  upTime: String!
+  map: String!
+  mapStartTime: String!
+  version: String!
+  privateClients: Int!
+  modName: String!
+  onlinePlayers: [Player]!
+}
+
+type Query {
+  me: UserWithToken
+  player(playerId: String!): Player
+  codServerStatus(fullInfo: Boolean): CodServerStatus!
+  searchPlayers(search: String!, limit: Int, offset: Int): [Player]!
+  admins: [Player]!
+  vips: [Player]!
+  adminPlayers(
+    where: AdminPlayerWhereInput
+    orderBy: AdminPlayerOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [AdminPlayer]!
+  vipPlayers(
+    where: VipPlayerWhereInput
+    orderBy: VipPlayerOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [VipPlayer]!
+}
+
+type Mutation {
+  signIn(email: String!, password: String!): UserWithToken
+  signOut: Boolean!
+  signUp(email: String!, username: String!, password: String!): UserWithToken
+  createAdminPlayer(data: AdminPlayerCreateInput!): AdminPlayer!
+  createVipPlayer(data: VipPlayerCreateInput!): VipPlayer!
+  updateAdminPlayer(
+    data: AdminPlayerUpdateInput!
+    where: AdminPlayerWhereUniqueInput!
+  ): AdminPlayer
+  updateVipPlayer(
+    data: VipPlayerUpdateInput!
+    where: VipPlayerWhereUniqueInput!
+  ): VipPlayer
+  deleteAdminPlayer(where: AdminPlayerWhereUniqueInput!): AdminPlayer
+  deleteVipPlayer(where: VipPlayerWhereUniqueInput!): VipPlayer
+  sendRconCommand(command: String!): String!
+}
+
+type Subscription {
+  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+}
+
+type User {
+  id: ID!
+  username: String!
+  email: String!
+  roles: [Role!]!
+}
+
+type UserWithToken {
+  user: User
+  token: String
+}

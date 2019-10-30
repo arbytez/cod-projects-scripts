@@ -1,0 +1,9 @@
+/* purgecss start ignore */
+@tailwind base;
+/* purgecss end ignore */
+
+@tailwind components;
+
+@import './components//button.css';
+
+@tailwind utilities;
