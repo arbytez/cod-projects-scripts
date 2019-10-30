@@ -33,7 +33,7 @@ class MyApp extends App {
           pageProps.auth = { user, isAuth: !!user };
         }
       } catch (error) {
-        console.error('Error getting current user', error);
+        // console.error('Error getting current user', error);
         // 1) Throw out invalid token
         destroyCookie(ctx, 'token');
         // 2) Redirect to login
@@ -51,7 +51,7 @@ class MyApp extends App {
 
   syncLogout = event => {
     if (event.key === 'logout') {
-      console.log('logged out from storage');
+      // console.log('logged out from storage');
       // Router.push('/login');
       window.location.replace('/login');
     }

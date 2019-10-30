@@ -51,6 +51,33 @@ function PlayerCard({ player, index }) {
     teamKills = 0,
     vipName = '--'
   } = player;
+  playerGUID = playerGUID || '--';
+  adminName = adminName || '--';
+  aliases = aliases || '';
+  connections = connections || 0;
+  deaths = deaths || 0;
+  firstActivityDate = firstActivityDate || 0;
+  firstActivityIP = firstActivityIP || '--';
+  headShots = headShots || 0;
+  isAdmin = isAdmin || 0;
+  isVip = isVip || 0;
+  kills = kills || 0;
+  lastActivityDate = lastActivityDate || 0;
+  name = name || '--';
+  online = online || 0;
+  onlineTime = onlineTime || 0;
+  pid = pid || '';
+  ping = ping || 0;
+  playerID = playerID || '--';
+  playerIP = playerIP || '--';
+  port = port || '--';
+  punishmentScore = punishmentScore || 0;
+  score = score || 0;
+  selfKills = selfKills || 0;
+  steamid = steamid || '--';
+  teamDeaths = teamDeaths || 0;
+  teamKills = teamKills || 0;
+  vipName = vipName || '--';
   const aliasesArray = aliases.split(',').filter(alias => alias);
   return (
     <ul
@@ -82,15 +109,17 @@ function PlayerCard({ player, index }) {
             </div>
           ) : null}
         </div>
-        <button
-          className="m-1 p-1 underline italic cursor-pointer focus:shadow-outline"
-          onClick={() => {
-            setIsOpen(!isOpen);
-          }}
-        >
-          {isOpen ? 'Hide aliases' : 'Show aliases'}
-        </button>
-        {isOpen && (
+        {aliasesArray.length > 0 && (
+          <button
+            className="m-1 p-1 underline italic cursor-pointer focus:shadow-outline"
+            onClick={() => {
+              setIsOpen(!isOpen);
+            }}
+          >
+            {isOpen ? 'Hide aliases' : 'Show aliases'}
+          </button>
+        )}
+        {isOpen && aliasesArray.length > 0 && (
           <ul className="flex flex-wrap justify-start items-center">
             {aliasesArray.map((alias, i) => {
               return (

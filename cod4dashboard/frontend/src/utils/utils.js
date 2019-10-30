@@ -1,4 +1,4 @@
-const formatDuration = ms => {
+export const formatDuration = ms => {
   if (ms < 0) ms = -ms;
   const time = {
     day: Math.floor(ms / 86400000),
@@ -13,4 +13,13 @@ const formatDuration = ms => {
     .join(', ');
 };
 
-export { formatDuration };
+export const removeCodColors = str => {
+  if (!str) return '';
+  const regExp = new RegExp(/(\^\d{1})/, 'gmui');
+  const output = str.replace(regExp, '');
+  return output;
+};
+
+export const isEmpty = obj => {
+  return Object.keys(obj).length === 0;
+};

@@ -11,7 +11,8 @@
     "clean": "rimraf ./out && rimraf ./.next",
     "generate": "rimraf ./src/generated && npm-run-all graphqlcodegen tsc",
     "graphqlcodegen": "graphql-codegen",
-    "tsc": "tsc -p ./src/config/tsconfig.codegen.json"
+    "tsc": "tsc -p ./src/config/tsconfig.codegen.json",
+    "production": "cross-env NODE_ENV=production npm-run-all generate build start"
   },
   "license": "MIT",
   "dependencies": {

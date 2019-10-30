@@ -19,10 +19,10 @@ const GitHubIcon = () => {
 
 function Footer() {
   return (
-    <footer className="bg-gray-400 flex items-center justify-center italic mx-auto py-1 px-2 underline text-sm text-gray-800">
+    <footer className="bg-gray-100 flex items-center justify-center italic mx-auto py-1 px-2 underline text-sm text-gray-800">
       <a
         href="https://github.com/arbytez/cod-projects-scripts/tree/master/cod4dashboard"
-        className="font-semibold"
+        className="font-bold tracking-wider"
       >
         <div className="flex">
           <GitHubIcon />

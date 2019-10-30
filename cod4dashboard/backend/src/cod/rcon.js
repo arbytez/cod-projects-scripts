@@ -93,33 +93,33 @@ const executeCommand = async (
 };
 
 const serverStatus = async (getFullInfo = false) => {
-  let res = await getStatus(200);
+  let res = await getStatus(300);
   let status = {
-    online: false,
+    online: !!res,
     ip: process.env.COD4_SERVER_IP,
     port: process.env.COD4_SERVER_PORT,
-    hostname: '',
-    gametype: '',
-    maxclients: 0,
-    upTime: '',
-    mapStartTime: '',
-    privateClients: 0,
-    modName: '',
-    version: '',
-    map: '',
-    onlinePlayers: []
+    hostname: res.sv_hostname || 'OFFLINE',
+    gametype: res.g_gametype || 'n/a',
+    maxclients: res.sv_maxclients || 0,
+    upTime: res.uptime || 'n/a',
+    mapStartTime: res.g_mapStartTime || new Date().toUTCString(),
+    privateClients: res.sv_privateClients || 0,
+    modName: res._Mod || res.fs_game || 'n/a',
+    version: res.version || 'n/a',
+    map: res.mapname || 'n/a',
+    onlinePlayers: res.onlinePlayers || []
   };
-  status.online = !!res;
-  status.hostname = res.sv_hostname;
-  status.gametype = res.g_gametype;
-  status.maxclients = res.sv_maxclients;
-  status.upTime = res.uptime;
-  status.mapStartTime = res.g_mapStartTime;
-  status.privateClients = res.sv_privateClients;
-  status.modName = res._Mod || res.fs_game;
-  status.version = res.version;
-  status.map = res.mapname;
-  status.onlinePlayers = res.onlinePlayers;
+  // status.online = !!res;
+  // status.hostname = res.sv_hostname;
+  // status.gametype = res.g_gametype;
+  // status.maxclients = res.sv_maxclients;
+  // status.upTime = res.uptime;
+  // status.mapStartTime = res.g_mapStartTime;
+  // status.privateClients = res.sv_privateClients;
+  // status.modName = res._Mod || res.fs_game;
+  // status.version = res.version;
+  // status.map = res.mapname;
+  // status.onlinePlayers = res.onlinePlayers;
 
   if (!getFullInfo) {
     return status;
