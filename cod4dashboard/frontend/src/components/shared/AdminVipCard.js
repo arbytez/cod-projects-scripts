@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { format, formatDistanceToNow, parse, toDate } from 'date-fns';
 
 import catchErrors from '../../utils/catchErrors';
-import { formatDuration } from '../../utils/utils';
 
 const XIcon = ({
   guids,

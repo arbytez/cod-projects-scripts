@@ -7,8 +7,8 @@ import ErrorMessage from '../shared/ErrorMessage';
 import { useSignInMutation } from '../../generated/js/graphql';
 
 const INITIAL_USER = {
-  email: 'user1@example.com',
-  password: 'user1'
+  email: '',
+  password: ''
 };
 
 const LoginForm = () => {
