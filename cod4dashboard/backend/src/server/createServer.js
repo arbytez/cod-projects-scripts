@@ -29,6 +29,7 @@ const schema = makeExecutableSchema({
 function createServer() {
   return new ApolloServer({
     schema,
+    introspection: true, // true also in production because it is necessary for the client to generate at runtime the backend api calls with graphql-codegen
     context: async ({ req, connection, payload }) => {
       if (connection) {
         const connCtx = connection.context;
