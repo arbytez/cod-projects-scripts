@@ -9,11 +9,12 @@
     "pm2": "cross-env NODE_ENV=production pm2 start ./src/index.js -n Cod4GraphQLServer",
     "prisma:deploy": "rimraf ./src/server/generated && prisma deploy --env-file .env.prisma",
     "prisma:token": "prisma token --env-file .env.prisma",
-    "prisma:generate": "rimraf ./src/server/generated && prisma generate --env-file .env.prisma",
+    "prisma:generate": "rimraf ./src/server/generated && prisma generate",
     "prisma:admin": "prisma admin --env-file .env.prisma",
     "prisma:playground": "prisma playground --env-file .env.prisma",
     "test": "cross-env NODE_ENV=test jest",
-    "majestic": "cross-env NODE_ENV=test majestic --port=4001 --noOpen"
+    "majestic": "cross-env NODE_ENV=test majestic --port=4001 --noOpen",
+    "production": "cross-env NODE_ENV=production npm run prisma:generate && npm run start"
   },
   "keywords": [],
   "author": "",
