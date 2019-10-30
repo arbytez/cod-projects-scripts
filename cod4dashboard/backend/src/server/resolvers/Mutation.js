@@ -48,16 +48,18 @@ const Mutation = {
     return true;
   },
   async signUp(parent, args, ctx, info) {
-    let { email, username, password } = args;
-    validate({ email, username, password })(validateUser);
-    password = await bcrypt.hash(password, 10);
-    const user = await prisma.createUser({
-      ...args,
-      password,
-      roles: { set: ['PLAYER'] }
-    });
-    const token = await generateToken(user);
-    return { user, token };
+    // Sign Up operation disabled!
+    throw new AuthenticationError('Sign Up operation disabled!');
+    // let { email, username, password } = args;
+    // validate({ email, username, password })(validateUser);
+    // password = await bcrypt.hash(password, 10);
+    // const user = await prisma.createUser({
+    //   ...args,
+    //   password,
+    //   roles: { set: ['PLAYER'] }
+    // });
+    // const token = await generateToken(user);
+    // return { user, token };
   },
   async sendRconCommand(parent, args, ctx, info) {
     checkAuthorization(ctx, ['ROOT']);
