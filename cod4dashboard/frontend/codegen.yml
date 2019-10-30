@@ -1,4 +1,4 @@
-schema: ${SCHEMA_PATH} # http://localhost:4000/graphql
+schema: ${ENDPOINT_HTTP} # http://localhost:4000/graphql
 documents: ./src/**/*.graphql
 config:
   scalars:
