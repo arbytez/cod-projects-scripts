@@ -71,7 +71,6 @@ const PlayerProperty = ({ title, value1, value2 = '' }) => {
 };
 
 function AdminVipCard({ player, index, deleteFunc, refetchFunc, updateFunc }) {
-  const [isOpen, setIsOpen] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const [guidToAdd, setGuidToAdd] = React.useState('');
   let {
@@ -85,10 +84,13 @@ function AdminVipCard({ player, index, deleteFunc, refetchFunc, updateFunc }) {
   async function handleAddNewGuid() {
     try {
       setLoading(true);
-      await updateFunc({
-        variables: { id, guids: [...guids, guidToAdd] }
-      });
-      await refetchFunc();
+      if (guidToAdd) {
+        await updateFunc({
+          variables: { id, guids: [...guids, guidToAdd] }
+        });
+        setGuidToAdd('');
+        await refetchFunc();
+      }
     } catch (error) {
       catchErrors(error, alert);
     } finally {
