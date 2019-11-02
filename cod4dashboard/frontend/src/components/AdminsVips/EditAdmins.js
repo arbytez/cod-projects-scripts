@@ -11,34 +11,34 @@ import catchErrors from '../../utils/catchErrors';
 import ErrorMessage from '../shared/ErrorMessage';
 
 function EditAdmins() {
+  const [loading, setLoading] = React.useState(false);
   const [nameNewAdmin, setNameNewAdmin] = React.useState('');
-  const [newAddLoading, setNewAddLoading] = React.useState(false);
+  const [adminPlayers, setAdminPlayers] = React.useState([]);
   const [deleteAdminFunc] = useDeleteAdminPlayerMutation();
   const [updateAdminFunc] = useUpdateAdminPlayerMutation();
   const [createAdminFunc] = useCreateAdminPlayerMutation();
-  let adminPlayers = [];
 
   async function handleAddNewAdmin(refetchAdminsFunc) {
     try {
-      setNewAddLoading(true);
+      setLoading(true);
       await createAdminFunc({ variables: { name: nameNewAdmin } });
       await refetchAdminsFunc();
       setNameNewAdmin('');
     } catch (error) {
       catchErrors(error, alert);
     } finally {
-      setNewAddLoading(false);
+      setLoading(false);
     }
   }
 
   return (
     <AdminPlayersComponent>
-      {({ loading, data, error, refetch: refetchAdminsFunc }) => {
-        if (loading) return <p>Loading...</p>;
+      {({ loading: loadingQuery, data, error, refetch: refetchAdminsFunc }) => {
+        if (loadingQuery) return <p>Loading...</p>;
         if (error || !data || !data.adminPlayers) {
-          adminPlayers = [];
+          setAdminPlayers([]);
         } else {
-          adminPlayers = data.adminPlayers;
+          setAdminPlayers(data.adminPlayers);
         }
         return (
           <>
@@ -46,11 +46,11 @@ function EditAdmins() {
               <h4 className="ml-4 text-xl font-semibold">
                 Admins ({adminPlayers.length})
               </h4>
-              <div className="my-4 ml-1 sm:m-0 flex items-center">
+              <div className="right-0 my-4 ml-1 sm:m-0 flex items-center">
                 <input
                   type="text"
                   className="form-input"
-                  disabled={loading || newAddLoading}
+                  disabled={loading || loadingQuery}
                   placeholder="admin name"
                   name="input-new-admin"
                   value={nameNewAdmin}
@@ -60,6 +60,7 @@ function EditAdmins() {
                 />
                 <button
                   className="btn btn-primary ml-4 mr-1"
+                  disabled={loading || loadingQuery}
                   onClick={async () => {
                     try {
                       await handleAddNewAdmin(refetchAdminsFunc);

@@ -11,34 +11,34 @@ import catchErrors from '../../utils/catchErrors';
 import ErrorMessage from '../shared/ErrorMessage';
 
 function EditVips() {
+  const [loading, setLoading] = React.useState(false);
   const [nameNewVip, setNameNewVip] = React.useState('');
-  const [newAddLoading, setNewAddLoading] = React.useState(false);
+  const [vipPlayers, setVipPlayers] = React.useState([]);
   const [deleteVipFunc] = useDeleteVipPlayerMutation();
   const [updateVipFunc] = useUpdateVipPlayerMutation();
   const [createVipFunc] = useCreateVipPlayerMutation();
-  let vipPlayers = [];
 
   async function handleAddNewVip(refetchVipFunc) {
     try {
-      setNewAddLoading(true);
+      setLoading(true);
       await createVipFunc({ variables: { name: nameNewVip } });
       await refetchVipFunc();
       setNameNewVip('');
     } catch (error) {
       catchErrors(error, alert);
     } finally {
-      setNewAddLoading(false);
+      setLoading(false);
     }
   }
 
   return (
     <VipPlayersComponent>
-      {({ loading, data, error, refetch: refetchVipFunc }) => {
-        if (loading) return <p>Loading...</p>;
+      {({ loading: loadingQuery, data, error, refetch: refetchVipFunc }) => {
+        if (loadingQuery) return <p>Loading...</p>;
         if (error || !data || !data.vipPlayers) {
-          vipPlayers = [];
+          setVipPlayers([]);
         } else {
-          vipPlayers = data.vipPlayers;
+          setVipPlayers(data.vipPlayers);
         }
         return (
           <>
@@ -50,7 +50,7 @@ function EditVips() {
                 <input
                   type="text"
                   className="form-input"
-                  disabled={loading || newAddLoading}
+                  disabled={loading || loadingQuery}
                   placeholder="vip name"
                   name="input-new-vip"
                   value={nameNewVip}

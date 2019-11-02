@@ -6,18 +6,19 @@ import PlayerCard from '../shared/PlayerCard';
 import catchErrors from '../../utils/catchErrors';
 
 function AdminsVips() {
-  let admins = [],
-    vips = [];
+  const [loading, setLoading] = React.useState(false);
+  const [admins, setAdmins] = React.useState([]);
+  const [vips, setVips] = React.useState([]);
   return (
     <AdminsAndVipsComponent>
-      {({ loading, data, error, refetch }) => {
-        if (loading) return <p>Loading...</p>;
+      {({ loading: loadingQuery, data, error, refetch }) => {
+        if (loadingQuery) return <p>Loading...</p>;
         if (error || !data || !data.admins || !data.vips) {
-          admins = [];
-          vips = [];
+          setAdmins([]);
+          setVips([]);
         } else {
-          admins = data.admins;
-          vips = data.vips;
+          setAdmins(data.admins);
+          setVips(data.vips);
         }
         return (
           <div>
@@ -27,12 +28,15 @@ function AdminsVips() {
               </h4>
               <button
                 className="btn mr-4"
-                disabled={loading}
+                disabled={loadingQuery || loading}
                 onClick={async () => {
                   try {
+                    setLoading(true);
                     await refetch();
                   } catch (error) {
                     catchErrors(error, alert);
+                  } finally {
+                    setLoading(false);
                   }
                 }}
               >
