@@ -96,6 +96,16 @@ function SendCommandForm() {
           className="btn m-1"
           disabled={loading}
           onClick={() => {
+            setRconCmd('getss all');
+            sendRcon('getss all');
+          }}
+        >
+          getss all
+        </button>
+        <button
+          className="btn m-1"
+          disabled={loading}
+          onClick={() => {
             setRconCmd('dumpbanlist');
             sendRcon('dumpbanlist');
           }}
