@@ -23,7 +23,11 @@ export const getErrorMessage = error => {
       }
       errorMsg = errorMsg
         .replace('GraphQL error: ', '')
-        .replace('Network error: ', '');
+        .replace('Network error: ', '')
+        .replace(
+          'Unexpected token T in JSON at position 0',
+          'Too many requests, please try again later.'
+        );
       const errorParsed = errorMsg.match(/^(.*): {".*$/);
       if (errorParsed) {
         errorMsg = errorParsed[1];
