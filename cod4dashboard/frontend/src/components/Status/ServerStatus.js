@@ -42,6 +42,10 @@ function ServerStatus() {
   }, [errorQuery]);
 
   React.useEffect(() => {
+    handleRefresh();
+  }, [fullInfo]);
+
+  React.useEffect(() => {
     const { codServerStatus } = data || {};
     if (codServerStatus) {
       setServerStatus(codServerStatus);
